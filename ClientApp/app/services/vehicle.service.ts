@@ -6,9 +6,16 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 @Injectable()
-export class FeatureService {
+export class VehicleService {
 
   constructor(private http: HttpClient) { }
+
+  getMakes() {
+    return this.http
+      .get('/api/makes', { observe: 'response' })
+      .map((data: HttpResponse<any>) => data.body)
+      .catch((err:HttpErrorResponse) => Observable.throw(err));
+  }
 
   getFeatures() {
     return this.http
