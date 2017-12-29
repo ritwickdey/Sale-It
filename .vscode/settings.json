@@ -7,5 +7,10 @@
         "**/.DS_Store": true,
         "**/obj":true,
         "**/bin":true
-    }
+    },
+    "csharp.format.enable": false,
+    "csharpfixformat.style.braces.onSameLine": false,
+    "csharpfixformat.style.spaces.insideEmptyBrackets": false,
+    "csharpfixformat.style.spaces.beforeParenthesis": false, 
+    "csharpfixformat.style.spaces.afterParenthesis": false, 
 }
