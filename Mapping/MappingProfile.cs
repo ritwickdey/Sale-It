@@ -10,6 +10,7 @@ namespace SaleIt.Mapping
         {
             CreateMap<Make, MakeResource>();
             CreateMap<Model, ModelResources>();
+            CreateMap<Feature, FeatureResource>();
         }
 
     }
