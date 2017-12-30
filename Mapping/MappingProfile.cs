@@ -25,23 +25,17 @@ namespace SaleIt.Mapping
                 .ForMember(v => v.VehicleFeatures, opt => opt.Ignore())
                 .AfterMap((vr,v) => {
                     //add
-                    foreach(var id in vr.Features) {
-                        if(!v.VehicleFeatures.Any(e => e.FeatureId == id)) {
-                            v.VehicleFeatures.Add(new VehicleFeature { FeatureId = id });   
-                        }
+                    var addedFeature = vr.Features.Where(id => !v.VehicleFeatures.Any(e => e.FeatureId == id));
+                    foreach(var id in addedFeature) {
+                        v.VehicleFeatures.Add(new VehicleFeature { FeatureId = id });   
                     }
-
+                    
                     //remove
-                    var removedFeatures = new List<VehicleFeature>();
-                    foreach(var f in v.VehicleFeatures) {
-                        if(!vr.Features.Any(e => e == f.FeatureId)) {
-                            removedFeatures.Add(f);
-                        }
+                    var removedFeatures = v.VehicleFeatures.Where(f => !vr.Features.Any(e => e == f.FeatureId));
+                    foreach(var f in removedFeatures.ToList()) {
+                        v.VehicleFeatures.Remove(f);
                     }
 
-                    removedFeatures.ForEach(e => {
-                        v.VehicleFeatures.Remove(e);
-                    });
 
                 });
         }
