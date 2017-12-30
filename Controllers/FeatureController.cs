@@ -21,10 +21,10 @@ namespace SaleIt.Controllers
         }
 
         [HttpGet("/api/features")]
-        public async Task<IEnumerable<KeyValuePairResources>> getFeaturesAsync()
+        public async Task<IEnumerable<KeyValuePairResource>> getFeaturesAsync()
         {
             var features = await context.Features.ToListAsync();
-            return mapper.Map<List<Feature>, List<KeyValuePairResources>>(features);
+            return mapper.Map<List<Feature>, List<KeyValuePairResource>>(features);
         }
 
     }

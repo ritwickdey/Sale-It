@@ -10,13 +10,13 @@ namespace SaleIt.Controllers.Resources
         public bool IsRegistered { get; set; }
         public DateTime LastUpdate { get; set; }
         public ContactResource Contact { get; set; }
-        public KeyValuePairResources Model { get; set; }
+        public KeyValuePairResource Model { get; set; }
         public MakeResource Make { get; set; }
-        public ICollection<KeyValuePairResources> Features { get; set; }
+        public ICollection<KeyValuePairResource> Features { get; set; }
 
         public VehicleResource()
         {
-            Features = new Collection<KeyValuePairResources>();
+            Features = new Collection<KeyValuePairResource>();
         }
 
     }
