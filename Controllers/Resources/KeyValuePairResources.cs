@@ -1,6 +1,6 @@
 namespace SaleIt.Controllers.Resources
 {
-    public class ModelResources
+    public class KeyValuePairResources
     {
         public int Id { get; set; }
 

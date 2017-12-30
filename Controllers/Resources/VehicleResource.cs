@@ -10,7 +10,7 @@ namespace SaleIt.Controllers.Resources
         public bool IsRegistered { get; set; }
         public DateTime LastUpdate { get; set; }
         public ContactResource Contact { get; set; }
-        public ModelResources Model { get; set; }
+        public KeyValuePairResources Model { get; set; }
         public MakeResource Make { get; set; }
         public ICollection<FeatureResource> Features { get; set; }
 

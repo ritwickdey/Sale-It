@@ -9,10 +9,10 @@ namespace SaleIt.Controllers.Resources
         public int Id { get; set; }
         
         public string name { get; set; }
-        public ICollection<ModelResources> Models { get; set; }
+        public ICollection<KeyValuePairResources> Models { get; set; }
         public MakeResource()
         {
-            Models = new Collection<ModelResources>();
+            Models = new Collection<KeyValuePairResources>();
         }
     }
 }
