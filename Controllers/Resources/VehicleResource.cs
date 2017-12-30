@@ -12,11 +12,11 @@ namespace SaleIt.Controllers.Resources
         public ContactResource Contact { get; set; }
         public KeyValuePairResources Model { get; set; }
         public MakeResource Make { get; set; }
-        public ICollection<FeatureResource> Features { get; set; }
+        public ICollection<KeyValuePairResources> Features { get; set; }
 
         public VehicleResource()
         {
-            Features = new Collection<FeatureResource>();
+            Features = new Collection<KeyValuePairResources>();
         }
 
     }

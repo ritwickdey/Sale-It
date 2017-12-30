@@ -3,12 +3,8 @@ using System.Collections.ObjectModel;
 
 namespace SaleIt.Controllers.Resources
 {
-    public class MakeResource
+    public class MakeResource : KeyValuePairResources
     {
-        
-        public int Id { get; set; }
-        
-        public string name { get; set; }
         public ICollection<KeyValuePairResources> Models { get; set; }
         public MakeResource()
         {

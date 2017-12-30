@@ -12,13 +12,13 @@ namespace SaleIt.Mapping
         {
             CreateMap<Make, MakeResource>();
             CreateMap<Model, KeyValuePairResources>();
-            CreateMap<Feature, FeatureResource>();
+            CreateMap<Feature, KeyValuePairResources>();
             CreateMap<Vehicle, SaveVehicleResource>()
                 .ForMember(vr => vr.Contact, opt => opt.MapFrom(v => new ContactResource { Name = v.ContactName, Email = v.ContactEmail, Phone = v.ContactPhone }))
                 .ForMember(vr => vr.Features, opt => opt.MapFrom(v => v.VehicleFeatures.Select(e => e.FeatureId)));
             CreateMap<Vehicle, VehicleResource>()
                 .ForMember(vr => vr.Contact, opt => opt.MapFrom(v => new ContactResource { Name = v.ContactName, Email = v.ContactEmail, Phone = v.ContactPhone }))
-                .ForMember(vr => vr.Features, opt => opt.MapFrom(v => v.VehicleFeatures.Select(e => new FeatureResource { Id = e.FeatureId, Name = e.Feature.Name })))
+                .ForMember(vr => vr.Features, opt => opt.MapFrom(v => v.VehicleFeatures.Select(e => new KeyValuePairResources { Id = e.FeatureId, Name = e.Feature.Name })))
                 .ForMember(vr => vr.Make, opt => opt.MapFrom(v => v.Model.Make));
 
             CreateMap<SaveVehicleResource, Vehicle>()
