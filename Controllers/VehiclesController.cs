@@ -92,11 +92,14 @@ namespace SaleIt.Controllers
             {
                 var vehicle = await context.Vehicles
                     .Include(e => e.VehicleFeatures)
+                        .ThenInclude(vf => vf.Feature)
+                    .Include(e => e.Model)
+                        .ThenInclude(e => e.Make)
                     .FirstOrDefaultAsync(e => e.Id == id);
 
                 if (vehicle == null) return NotFound();
 
-                var vehicleResource = mapper.Map<Vehicle, SaveVehicleResource>(vehicle);
+                var vehicleResource = mapper.Map<Vehicle, VehicleResource>(vehicle);
                 return Ok(vehicleResource);
             }
             catch (Exception)
