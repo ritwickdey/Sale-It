@@ -52,7 +52,8 @@ namespace SaleIt.Controllers
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
-                var vehicle = context.Vehicles.Include(e => e.VehicleFeatures).FirstOrDefault(e => e.Id == id);
+                var vehicle = await context.Vehicles.Include(e => e.VehicleFeatures).FirstOrDefaultAsync(e => e.Id == id);
+                if (vehicle == null) return NotFound();
 
                 mapper.Map<VehicleResource, Vehicle>(vehicleResource, vehicle);
                 vehicle.LastUpdate = DateTime.Now;
@@ -61,6 +62,23 @@ namespace SaleIt.Controllers
 
                 var result = mapper.Map<Vehicle, VehicleResource>(vehicle);
                 return Ok(result);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { error = "Something Went Wrong" });
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteVehiclesAsync(int id)
+        {
+            try
+            {
+                var vehicle = await context.Vehicles.FindAsync(id);
+                if (vehicle == null) return NotFound();
+                context.Vehicles.Remove(vehicle);
+                await context.SaveChangesAsync();
+                return Ok();
             }
             catch (Exception)
             {
