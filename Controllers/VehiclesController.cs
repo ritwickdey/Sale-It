@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -79,6 +78,26 @@ namespace SaleIt.Controllers
                 context.Vehicles.Remove(vehicle);
                 await context.SaveChangesAsync();
                 return Ok();
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { error = "Something Went Wrong" });
+            }
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetVehiclesAsync(int id)
+        {
+            try
+            {
+                var vehicle = await context.Vehicles
+                    .Include(e => e.VehicleFeatures)
+                    .FirstOrDefaultAsync(e => e.Id == id);
+
+                if (vehicle == null) return NotFound();
+
+                var vehicleResource = mapper.Map<Vehicle, VehicleResource>(vehicle);
+                return Ok(vehicleResource);
             }
             catch (Exception)
             {
