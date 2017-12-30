@@ -21,20 +21,20 @@ namespace SaleIt.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateVehiclesAsync([FromBody] VehicleResource vehicleResource)
+        public async Task<IActionResult> CreateVehiclesAsync([FromBody] SaveVehicleResource vehicleResource)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
-                var vehicle = mapper.Map<VehicleResource, Vehicle>(vehicleResource);
+                var vehicle = mapper.Map<SaveVehicleResource, Vehicle>(vehicleResource);
                 vehicle.LastUpdate = DateTime.Now;
 
                 await context.Vehicles.AddAsync(vehicle);
                 await context.SaveChangesAsync();
 
-                var savedVehicleResource = mapper.Map<Vehicle, VehicleResource>(vehicle);
+                var savedVehicleResource = mapper.Map<Vehicle, SaveVehicleResource>(vehicle);
                 return Ok(savedVehicleResource);
             }
             catch (Exception)
@@ -44,7 +44,7 @@ namespace SaleIt.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateVehiclesAsync(int id, [FromBody] VehicleResource vehicleResource)
+        public async Task<IActionResult> UpdateVehiclesAsync(int id, [FromBody] SaveVehicleResource vehicleResource)
         {
             try
             {
@@ -54,12 +54,12 @@ namespace SaleIt.Controllers
                 var vehicle = await context.Vehicles.Include(e => e.VehicleFeatures).FirstOrDefaultAsync(e => e.Id == id);
                 if (vehicle == null) return NotFound();
 
-                mapper.Map<VehicleResource, Vehicle>(vehicleResource, vehicle);
+                mapper.Map<SaveVehicleResource, Vehicle>(vehicleResource, vehicle);
                 vehicle.LastUpdate = DateTime.Now;
 
                 await context.SaveChangesAsync();
 
-                var result = mapper.Map<Vehicle, VehicleResource>(vehicle);
+                var result = mapper.Map<Vehicle, SaveVehicleResource>(vehicle);
                 return Ok(result);
             }
             catch (Exception)
@@ -96,7 +96,7 @@ namespace SaleIt.Controllers
 
                 if (vehicle == null) return NotFound();
 
-                var vehicleResource = mapper.Map<Vehicle, VehicleResource>(vehicle);
+                var vehicleResource = mapper.Map<Vehicle, SaveVehicleResource>(vehicle);
                 return Ok(vehicleResource);
             }
             catch (Exception)

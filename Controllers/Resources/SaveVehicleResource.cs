@@ -6,7 +6,7 @@ using SaleIt.Models;
 
 namespace SaleIt.Controllers.Resources
 {
-    public class VehicleResource
+    public class SaveVehicleResource
     {
         public int Id { get; set; }
         public bool IsRegistered { get; set; }
@@ -16,7 +16,7 @@ namespace SaleIt.Controllers.Resources
         public ContactResource Contact { get; set; }
         public ICollection<int> Features { get; set; }
 
-        public VehicleResource()
+        public SaveVehicleResource()
         {
             Features = new Collection<int>();
         }
