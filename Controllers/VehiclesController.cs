@@ -34,8 +34,16 @@ namespace SaleIt.Controllers
                 await context.Vehicles.AddAsync(vehicle);
                 await context.SaveChangesAsync();
 
-                var savedVehicleResource = mapper.Map<Vehicle, SaveVehicleResource>(vehicle);
-                return Ok(savedVehicleResource);
+                vehicle = await context.Vehicles
+                    .Include(e => e.VehicleFeatures)
+                    .ThenInclude(vf => vf.Feature)
+                    .Include(e => e.Model)
+                    .ThenInclude(e => e.Make)
+                    .FirstOrDefaultAsync(e => e.Id == vehicle.Id);
+
+                var result = mapper.Map<Vehicle, VehicleResource>(vehicle);
+               
+                return Ok(result);
             }
             catch (Exception)
             {
@@ -92,9 +100,9 @@ namespace SaleIt.Controllers
             {
                 var vehicle = await context.Vehicles
                     .Include(e => e.VehicleFeatures)
-                        .ThenInclude(vf => vf.Feature)
+                    .ThenInclude(vf => vf.Feature)
                     .Include(e => e.Model)
-                        .ThenInclude(e => e.Make)
+                    .ThenInclude(e => e.Make)
                     .FirstOrDefaultAsync(e => e.Id == id);
 
                 if (vehicle == null) return NotFound();
