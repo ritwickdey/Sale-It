@@ -12,13 +12,24 @@ namespace SaleIt.Persistence
             this.context = context;
         }
 
-        public async Task<Vehicle> GetVehicleAsync(int id) =>
-            await context.Vehicles
+        public async Task<Vehicle> GetVehicleAsync(int id, bool includeRelated = true)
+        {
+            if (!includeRelated)
+                return await context.Vehicles.FindAsync(id);
+
+            return await context.Vehicles
                 .Include(v => v.VehicleFeatures)
                 .ThenInclude(vf => vf.Feature)
                 .Include(v => v.Model)
                 .ThenInclude(m => m.Make)
                 .FirstOrDefaultAsync(v => v.Id == id);
-                
+
+        }
+
+        public async Task AddAsync(Vehicle vehicle) =>
+            await context.AddAsync(vehicle);
+        public void Remove(Vehicle vehicle) =>
+            context.Vehicles.Remove(vehicle);
+
     }
 }

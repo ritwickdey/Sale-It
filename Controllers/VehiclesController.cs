@@ -13,12 +13,12 @@ namespace SaleIt.Controllers
     public class VehiclesController : Controller
     {
         private readonly IMapper mapper;
-        private readonly SaleItDbContext context;
         private readonly IVehicleRepository repository;
-        public VehiclesController(SaleItDbContext context, IMapper mapper, IVehicleRepository repository)
+        private readonly IUnitOfWork unitOfWork;
+        public VehiclesController(IMapper mapper, IVehicleRepository repository, IUnitOfWork unitOfWork)
         {
+            this.unitOfWork = unitOfWork;
             this.repository = repository;
-            this.context = context;
             this.mapper = mapper;
         }
 
@@ -33,8 +33,8 @@ namespace SaleIt.Controllers
                 var vehicle = mapper.Map<SaveVehicleResource, Vehicle>(vehicleResource);
                 vehicle.LastUpdate = DateTime.Now;
 
-                await context.Vehicles.AddAsync(vehicle);
-                await context.SaveChangesAsync();
+                await repository.AddAsync(vehicle);
+                await unitOfWork.CompleteAsync();
 
                 vehicle = await repository.GetVehicleAsync(vehicle.Id);
 
@@ -56,23 +56,24 @@ namespace SaleIt.Controllers
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
-                var vehicle = await context.Vehicles.Include(e => e.VehicleFeatures).FirstOrDefaultAsync(e => e.Id == id);
+               // var vehicle = await context.Vehicles.Include(e => e.VehicleFeatures).FirstOrDefaultAsync(e => e.Id == id);
+                var vehicle = await repository.GetVehicleAsync(id);
+                
                 if (vehicle == null) return NotFound();
 
                 mapper.Map<SaveVehicleResource, Vehicle>(vehicleResource, vehicle);
                 vehicle.LastUpdate = DateTime.Now;
 
-                await context.SaveChangesAsync();
+                await unitOfWork.CompleteAsync();
 
                 vehicle = await repository.GetVehicleAsync(vehicle.Id);
-
                 var result = mapper.Map<Vehicle, VehicleResource>(vehicle);
 
                 return Ok(result);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return StatusCode(500, new { error = "Something Went Wrong" });
+                return StatusCode(500, new { error = "Something Went Wrong", ex });
             }
         }
 
@@ -81,10 +82,10 @@ namespace SaleIt.Controllers
         {
             try
             {
-                var vehicle = await context.Vehicles.FindAsync(id);
+                var vehicle = await repository.GetVehicleAsync(id, includeRelated: false);
                 if (vehicle == null) return NotFound();
-                context.Vehicles.Remove(vehicle);
-                await context.SaveChangesAsync();
+                repository.Remove(vehicle);
+                await unitOfWork.CompleteAsync();
                 return Ok();
             }
             catch (Exception)
