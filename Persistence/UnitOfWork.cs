@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using SaleIt.Core;
 
 namespace SaleIt.Persistence
 {

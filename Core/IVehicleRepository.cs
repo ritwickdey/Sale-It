@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
-using SaleIt.Models;
+using SaleIt.Core.Models;
 
-namespace SaleIt.Persistence
+namespace SaleIt.Core
 {
     public interface IVehicleRepository
     {

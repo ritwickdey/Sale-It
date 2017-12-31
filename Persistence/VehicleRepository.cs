@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using SaleIt.Models;
+using SaleIt.Core;
+using SaleIt.Core.Models;
 
 namespace SaleIt.Persistence
 {

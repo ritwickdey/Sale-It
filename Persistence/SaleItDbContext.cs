@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using SaleIt.Models;
+using SaleIt.Core.Models;
 
 namespace SaleIt.Persistence
 {

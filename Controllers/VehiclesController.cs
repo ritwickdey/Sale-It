@@ -2,10 +2,9 @@ using System;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using SaleIt.Controllers.Resources;
-using SaleIt.Models;
-using SaleIt.Persistence;
+using SaleIt.Core;
+using SaleIt.Core.Models;
 
 namespace SaleIt.Controllers
 {

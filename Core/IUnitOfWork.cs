@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace SaleIt.Persistence
+namespace SaleIt.Core
 {
     public interface IUnitOfWork
     {

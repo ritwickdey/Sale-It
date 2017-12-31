@@ -1,8 +1,7 @@
-using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using SaleIt.Controllers.Resources;
-using SaleIt.Models;
+using SaleIt.Core.Models;
 
 namespace SaleIt.Mapping
 {

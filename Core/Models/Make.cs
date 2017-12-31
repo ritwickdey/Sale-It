@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace SaleIt.Models
+namespace SaleIt.Core.Models
 {
     public class Make
     {

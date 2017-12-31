@@ -4,7 +4,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SaleIt.Controllers.Resources;
-using SaleIt.Models;
+using SaleIt.Core.Models;
 using SaleIt.Persistence;
 
 namespace SaleIt.Controllers

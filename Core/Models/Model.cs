@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SaleIt.Models
+namespace SaleIt.Core.Models
 {
     [Table("Models")]
     public class Model

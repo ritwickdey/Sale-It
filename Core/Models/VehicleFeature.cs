@@ -1,7 +1,6 @@
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SaleIt.Models
+namespace SaleIt.Core.Models
 {
     [Table("VehicleFeatures")]
     public class VehicleFeature
