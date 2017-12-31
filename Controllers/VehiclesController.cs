@@ -67,7 +67,15 @@ namespace SaleIt.Controllers
 
                 await context.SaveChangesAsync();
 
-                var result = mapper.Map<Vehicle, SaveVehicleResource>(vehicle);
+                vehicle = await context.Vehicles
+                    .Include(e => e.VehicleFeatures)
+                    .ThenInclude(vf => vf.Feature)
+                    .Include(e => e.Model)
+                    .ThenInclude(e => e.Make)
+                    .FirstOrDefaultAsync(e => e.Id == vehicle.Id);
+
+                var result = mapper.Map<Vehicle, VehicleResource>(vehicle);
+                
                 return Ok(result);
             }
             catch (Exception)
