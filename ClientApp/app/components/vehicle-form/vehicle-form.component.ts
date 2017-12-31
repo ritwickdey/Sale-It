@@ -9,8 +9,13 @@ import { Component, OnInit } from '@angular/core';
 export class VehicleFormComponent implements OnInit {
 
   makes: any[];
-  vehicle: { make: null, models: any[] } = { make: null, models: [] };
+  models: any[];
   features: any[];
+  vehicle: any = {
+    features: [],
+    contact: {},
+    isRegistered: false
+  };
 
   constructor(private vehicleService: VehicleService) { }
 
@@ -30,9 +35,24 @@ export class VehicleFormComponent implements OnInit {
   }
 
   onMakeChange() {
-    const make = this.makes.find(e => e.id == this.vehicle.make);
-    this.vehicle.models = make ? make.models : [];
-    console.log(this.vehicle.models);
+    const make = this.makes.find(e => e.id == this.vehicle.makeId);
+    this.models = make ? make.models : [];
+    console.log(this.models);
+    this.vehicle.modelId = undefined;
+  }
+
+  onFeatureToggle(featureId, event) {
+    if (event.target.checked)
+      this.vehicle.features.push(featureId)
+    else {
+      const index = this.vehicle.features.indexOf(featureId);
+      this.vehicle.features.splice(index, 1);
+    }
+  }
+
+  submit() {
+    this.vehicleService.create(this.vehicle)
+      .subscribe(x => console.log(x));
   }
 
 }

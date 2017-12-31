@@ -14,14 +14,21 @@ export class VehicleService {
     return this.http
       .get('/api/makes', { observe: 'response' })
       .map((data: HttpResponse<any>) => data.body)
-      .catch((err:HttpErrorResponse) => Observable.throw(err));
+      .catch((err: HttpErrorResponse) => Observable.throw(err));
   }
 
   getFeatures() {
     return this.http
-      .get('api/features', { observe: 'response' })
+      .get('/api/features', { observe: 'response' })
       .map((data: HttpResponse<any>) => data.body)
-      .catch((err:HttpErrorResponse) => Observable.throw(err));
+      .catch((err: HttpErrorResponse) => Observable.throw(err));
+  }
+
+  create(vehicle) {
+    return this.http
+      .post('/api/vehicles', vehicle, { observe: 'response' })
+      .map((data: HttpResponse<any>) => data.body)
+      .catch((err: HttpErrorResponse) => Observable.throw(err));
   }
 
 }
