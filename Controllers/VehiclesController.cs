@@ -14,8 +14,10 @@ namespace SaleIt.Controllers
     {
         private readonly IMapper mapper;
         private readonly SaleItDbContext context;
-        public VehiclesController(SaleItDbContext context, IMapper mapper)
+        private readonly IVehicleRepository repository;
+        public VehiclesController(SaleItDbContext context, IMapper mapper, IVehicleRepository repository)
         {
+            this.repository = repository;
             this.context = context;
             this.mapper = mapper;
         }
@@ -34,15 +36,10 @@ namespace SaleIt.Controllers
                 await context.Vehicles.AddAsync(vehicle);
                 await context.SaveChangesAsync();
 
-                vehicle = await context.Vehicles
-                    .Include(e => e.VehicleFeatures)
-                    .ThenInclude(vf => vf.Feature)
-                    .Include(e => e.Model)
-                    .ThenInclude(e => e.Make)
-                    .FirstOrDefaultAsync(e => e.Id == vehicle.Id);
+                vehicle = await repository.GetVehicleAsync(vehicle.Id);
 
                 var result = mapper.Map<Vehicle, VehicleResource>(vehicle);
-               
+
                 return Ok(result);
             }
             catch (Exception)
@@ -67,15 +64,10 @@ namespace SaleIt.Controllers
 
                 await context.SaveChangesAsync();
 
-                vehicle = await context.Vehicles
-                    .Include(e => e.VehicleFeatures)
-                    .ThenInclude(vf => vf.Feature)
-                    .Include(e => e.Model)
-                    .ThenInclude(e => e.Make)
-                    .FirstOrDefaultAsync(e => e.Id == vehicle.Id);
+                vehicle = await repository.GetVehicleAsync(vehicle.Id);
 
                 var result = mapper.Map<Vehicle, VehicleResource>(vehicle);
-                
+
                 return Ok(result);
             }
             catch (Exception)
@@ -106,12 +98,7 @@ namespace SaleIt.Controllers
         {
             try
             {
-                var vehicle = await context.Vehicles
-                    .Include(e => e.VehicleFeatures)
-                    .ThenInclude(vf => vf.Feature)
-                    .Include(e => e.Model)
-                    .ThenInclude(e => e.Make)
-                    .FirstOrDefaultAsync(e => e.Id == id);
+                var vehicle = await repository.GetVehicleAsync(id);
 
                 if (vehicle == null) return NotFound();
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
@@ -9,7 +10,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SaleIt.Persistence;
-using AutoMapper;
 
 namespace SaleIt
 {
@@ -27,7 +27,7 @@ namespace SaleIt
         {
             services.AddAutoMapper();
             services.AddDbContext<SaleItDbContext>(options => options.UseSqlServer(Configuration["connectionString:Default"]));
-
+            services.AddScoped<IVehicleRepository, VehicleRepository>();
             services.AddMvc();
         }
 
@@ -57,7 +57,7 @@ namespace SaleIt
 
                 routes.MapSpaFallbackRoute(
                     name: "spa-fallback",
-                    defaults: new { controller = "Home", action = "Index" });
+                    defaults : new { controller = "Home", action = "Index" });
             });
         }
     }
