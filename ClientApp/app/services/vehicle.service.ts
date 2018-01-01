@@ -54,4 +54,11 @@ export class VehicleService {
       .catch((err: HttpErrorResponse) => Observable.throw(err));
   }
 
+  getVehicles() {
+    return this.http
+      .get('/api/vehicles', { observe: 'response' })
+      .map((data: HttpResponse<any>) => data.body)
+      .catch((err: HttpErrorResponse) => Observable.throw(err));
+  }
+
 }
