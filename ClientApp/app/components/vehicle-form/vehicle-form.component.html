@@ -1,5 +1,5 @@
 <h1>New Vehicle</h1>
-<form (ngSubmit)="submit()" #f="ngForm">
+<form (ngSubmit)="submit()" #f="ngForm" novalidate>
   <div class="form-group">
     <label for="make">Make*</label>
     <select name="makeId" [(ngModel)]="vehicle.makeId" #make="ngModel" (change)="onMakeChange()" id="make" class="form-control" required>
