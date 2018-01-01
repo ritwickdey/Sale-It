@@ -9,6 +9,7 @@ namespace SaleIt.Mapping
     {
         public MappingProfile()
         {
+            //Domain Model to API Resource
             CreateMap<Make, MakeResource>();
             CreateMap<Model, KeyValuePairResource>();
             CreateMap<Feature, KeyValuePairResource>();
@@ -20,6 +21,9 @@ namespace SaleIt.Mapping
                 .ForMember(vr => vr.Features, opt => opt.MapFrom(v => v.VehicleFeatures.Select(e => new KeyValuePairResource { Id = e.FeatureId, Name = e.Feature.Name })))
                 .ForMember(vr => vr.Make, opt => opt.MapFrom(v => v.Model.Make));
 
+
+            //API Resource to Domain Model
+            CreateMap<FilterResource, Filter>();
             CreateMap<SaveVehicleResource, Vehicle>()
                 .ForMember(v => v.Id, opt => opt.Ignore())
                 .ForMember(v => v.ContactName, opt => opt.MapFrom(vr => vr.Contact.Name))
