@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppModuleShared } from './app.shared.module';
 import { AppComponent } from './components/app/app.component';
+import { ErrorHandler } from '@angular/core';
+import { AppErrorHandler } from './app.error-handler';
 
 @NgModule({
     bootstrap: [ AppComponent ],
@@ -10,7 +12,11 @@ import { AppComponent } from './components/app/app.component';
         AppModuleShared
     ],
     providers: [
-        { provide: 'BASE_URL', useFactory: getBaseUrl }
+        { provide: 'BASE_URL', useFactory: getBaseUrl },
+        {
+            provide: ErrorHandler ,
+            useClass: AppErrorHandler,
+        }
     ]
 })
 export class AppModule {
