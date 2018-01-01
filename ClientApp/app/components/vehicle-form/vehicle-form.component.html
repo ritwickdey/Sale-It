@@ -59,6 +59,6 @@
     <label for="email">Email</label>
     <input name="contactEmail" [(ngModel)]="vehicle.contact.email" id="email" type="email" class="form-control">
   </div>
-  <button class="btn btn-primary" [disabled]="false && f.invalid" >Save</button>
+  <button class="btn btn-primary" [disabled]="f.invalid" >Save</button>
 </form>
 <p> {{vehicle | json}}</p>
