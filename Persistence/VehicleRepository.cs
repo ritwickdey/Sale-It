@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SaleIt.Core;
@@ -26,6 +27,12 @@ namespace SaleIt.Persistence
                 .FirstOrDefaultAsync(v => v.Id == id);
 
         }
+
+        public async Task<IEnumerable<Vehicle>> GetVehiclesAsync() =>
+            await context.Vehicles
+                .Include(v => v.Model)
+                .ThenInclude(m => m.Make)
+                .ToListAsync();
 
         public async Task AddAsync(Vehicle vehicle) =>
             await context.AddAsync(vehicle);

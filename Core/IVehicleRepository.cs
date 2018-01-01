@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using SaleIt.Core.Models;
 
@@ -8,5 +9,6 @@ namespace SaleIt.Core
         Task<Vehicle> GetVehicleAsync(int id, bool includeRelated = true);
         Task AddAsync(Vehicle vehicle);
         void Remove(Vehicle vehicle);
+        Task<IEnumerable<Vehicle>> GetVehiclesAsync();
     }
 }

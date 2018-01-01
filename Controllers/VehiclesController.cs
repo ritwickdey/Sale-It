@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -104,6 +105,21 @@ namespace SaleIt.Controllers
 
                 var vehicleResource = mapper.Map<Vehicle, VehicleResource>(vehicle);
                 return Ok(vehicleResource);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { error = "Something Went Wrong" });
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetVehiclesAsync()
+        {
+            try
+            {
+                var vehicles = await repository.GetVehiclesAsync();
+                var vehiclesResource = mapper.Map<IEnumerable<Vehicle>, IEnumerable<VehicleResource>>(vehicles);
+                return Ok(vehiclesResource);
             }
             catch (Exception)
             {
