@@ -40,6 +40,13 @@ export class VehicleService {
       .catch((err: HttpErrorResponse) => Observable.throw(err));
   }
 
+  delete(id: number) {
+    return this.http
+      .delete('/api/vehicles/' + id, { observe: 'response' })
+      .map((data: HttpResponse<any>) => data.body)
+      .catch((err: HttpErrorResponse) => Observable.throw(err));
+  }
+
   getVehicle(id: number) {
     return this.http
       .get('/api/vehicles/' + id, { observe: 'response' })

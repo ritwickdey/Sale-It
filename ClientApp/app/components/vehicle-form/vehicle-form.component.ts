@@ -77,15 +77,29 @@ export class VehicleFormComponent implements OnInit {
       return this.vehicleService
         .create(this.vehicle)
         .subscribe(x => this.showSuccessToast({
-          msg: 'Vehicle successfully created'
+          msg: 'Vehicle is successfully created'
         }));
     }
 
     this.vehicleService
       .update(this.vehicle)
       .subscribe(x => this.showSuccessToast({
-        msg: 'Vehicle successfully updated'
+        msg: 'Vehicle is successfully updated'
       }));
+  }
+
+  onDelete() {
+    if (confirm('Are you sure?')) {
+      this.vehicleService
+        .delete(this.vehicle.id)
+        .subscribe(x => {
+          this.showSuccessToast({
+            title: 'Deleted',
+            msg: 'Vehicle is successfully deleted'
+          });
+          this.router.navigateByUrl('/');
+        });
+    }
   }
 
   private showSuccessToast(obj: { title?: string; msg?: string }) {

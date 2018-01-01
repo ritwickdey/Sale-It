@@ -85,7 +85,7 @@ namespace SaleIt.Controllers
                 if (vehicle == null) return NotFound();
                 repository.Remove(vehicle);
                 await unitOfWork.CompleteAsync();
-                return Ok();
+                return Ok(new {});
             }
             catch (Exception)
             {
