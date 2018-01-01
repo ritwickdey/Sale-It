@@ -1,3 +1,4 @@
+import * as Raven from 'raven-js';
 import { ToastyService } from 'ng2-toasty';
 import { ErrorHandler, Inject, NgZone } from "@angular/core";
 
@@ -10,15 +11,16 @@ export class AppErrorHandler implements ErrorHandler {
     ) { }
 
     handleError(error: any): void {
+        Raven.captureException(error.message || error);
         this.ngZone.run(() =>{
-            this.toastyService.error({
+            this.toastyService.error({ 
                 title: 'Error',
                 msg: 'An unexpected error happended',
                 theme: 'bootstrap',
                 showClose: true,
                 timeout: 5000
             });
-            console.log('ERROR HANDLED BY GLOBAL', { error });
+            console.log('ERROR HANDLED BY GLOBAL', error);
         });
     }
 

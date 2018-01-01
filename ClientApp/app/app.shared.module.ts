@@ -1,3 +1,4 @@
+import * as Raven from 'raven-js';
 import { HttpClientModule } from '@angular/common/http';
 import { VehicleService } from './services/vehicle.service';
 import { NgModule } from '@angular/core';
@@ -13,6 +14,10 @@ import { HomeComponent } from './components/home/home.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { VehicleFormComponent } from './components/vehicle-form/vehicle-form.component';
+
+Raven
+    .config('https://7f92c57a5c6f444c9f3db19ece042de5@sentry.io/265466')
+    .install();
 
 @NgModule({
     declarations: [
@@ -38,7 +43,7 @@ import { VehicleFormComponent } from './components/vehicle-form/vehicle-form.com
             { path: '**', redirectTo: 'home' }
         ])
     ],
-    providers:[
+    providers: [
         VehicleService
     ]
 })
