@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SaleIt.Core;
@@ -46,21 +48,19 @@ namespace SaleIt.Persistence
                 query = query.Where(v => v.ModelId == queryObj.ModelId.Value);
             }
 
-            if (queryObj.SortBy?.ToLower() == "make")
-                query = queryObj.IsSortAscending ?
-                     query.OrderBy(v => v.Model.Make.name) : query.OrderByDescending(v => v.Model.Make.name);
+            var columnsMap = new Dictionary<string, Expression<Func<Vehicle, object>>>
+            {
+              ["make"] = v => v.Model.Make.name,   
+              ["model"] = v => v.Model.Name,   
+              ["contactname"] = v => v.ContactName,   
+              ["id"] = v => v.Id   
+            };
 
-            if (queryObj.SortBy?.ToLower() == "model")
-                query = queryObj.IsSortAscending ?
-                query.OrderBy(v => v.Model.Name) : query.OrderByDescending(v => v.Model.Name);
+            if(queryObj.IsSortAscending)
+                query = query.OrderBy(columnsMap[queryObj.SortBy]);
+            else
+                query = query.OrderByDescending(columnsMap[queryObj.SortBy]);
 
-            if (queryObj.SortBy?.ToLower() == "contactname")
-                query = queryObj.IsSortAscending ?
-                query.OrderBy(v => v.ContactName) : query.OrderByDescending(v => v.ContactName);
-
-            if (queryObj.SortBy?.ToLower() == "id")
-                query = queryObj.IsSortAscending ?
-                query.OrderBy(v => v.Id) : query.OrderByDescending(v => v.Id);
 
             return await query.ToListAsync();
 
