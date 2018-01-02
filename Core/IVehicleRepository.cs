@@ -9,6 +9,6 @@ namespace SaleIt.Core
         Task<Vehicle> GetVehicleAsync(int id, bool includeRelated = true);
         Task AddAsync(Vehicle vehicle);
         void Remove(Vehicle vehicle);
-        Task<IEnumerable<Vehicle>> GetVehiclesAsync(VehicleQuery filter);
+        Task<IEnumerable<Vehicle>> GetVehiclesAsync(VehicleQuery queryObj);
     }
 }
