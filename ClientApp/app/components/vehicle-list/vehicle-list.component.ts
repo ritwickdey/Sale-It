@@ -9,7 +9,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VehicleListComponent implements OnInit {
 
-  filteredVehicles: IVehicle[] = [];
   vehicles: IVehicle[] = [];
   makes: IKeyValuePair[] = [];
   filter: any = {};
@@ -19,20 +18,16 @@ export class VehicleListComponent implements OnInit {
   ngOnInit() {
     this.vehicleService.getMakes()
       .subscribe(result => this.makes = result);
-
-    this.vehicleService.getVehicles()
-      .subscribe((results: IVehicle[]) =>
-        this.filteredVehicles = this.vehicles = results
-      );
+    this.populateVehicle();
   }
 
   onFilterChange() {
-    let vehicles = this.vehicles;
+    this.populateVehicle();
+  }
 
-    if (this.filter.makeId)
-      vehicles = this.vehicles.filter(v => v.make.id == this.filter.makeId);
-
-    this.filteredVehicles = vehicles;
+  private populateVehicle() {
+    this.vehicleService.getVehicles(this.filter)
+      .subscribe((results: IVehicle[]) => this.vehicles = results);
   }
 
   resetFilter() {

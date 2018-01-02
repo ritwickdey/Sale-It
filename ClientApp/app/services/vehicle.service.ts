@@ -54,11 +54,18 @@ export class VehicleService {
       .catch((err: HttpErrorResponse) => Observable.throw(err));
   }
 
-  getVehicles() {
+  getVehicles(filter) {
     return this.http
-      .get('/api/vehicles', { observe: 'response' })
+      .get('/api/vehicles' + '?' + this.toQueryString(filter), { observe: 'response' })
       .map((data: HttpResponse<any>) => data.body)
       .catch((err: HttpErrorResponse) => Observable.throw(err));
+  }
+
+  private toQueryString(obj: object): string {
+    return Object.keys(obj)
+      .filter(key => obj[key] != undefined || obj[key] != null)
+      .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(obj[key])}`)
+      .join('&');
   }
 
 }
