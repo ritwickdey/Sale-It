@@ -39,14 +39,10 @@ namespace SaleIt.Persistence
                 .AsQueryable();
 
             if (queryObj.MakeId.HasValue)
-            {
                 query = query.Where(v => v.Model.MakeId == queryObj.MakeId.Value);
-            }
 
             if (queryObj.ModelId.HasValue)
-            {
                 query = query.Where(v => v.ModelId == queryObj.ModelId.Value);
-            }
 
             var columnsMap = new Dictionary<string, Expression<Func<Vehicle, object>>>
             {
@@ -56,20 +52,23 @@ namespace SaleIt.Persistence
               ["id"] = v => v.Id   
             };
 
-            if(queryObj.IsSortAscending)
-                query = query.OrderBy(columnsMap[queryObj.SortBy]);
-            else
-                query = query.OrderByDescending(columnsMap[queryObj.SortBy]);
-
+            query = ApplyOrdering(queryObj, query, columnsMap);
 
             return await query.ToListAsync();
-
         }
 
         public async Task AddAsync(Vehicle vehicle) =>
             await context.AddAsync(vehicle);
         public void Remove(Vehicle vehicle) =>
             context.Vehicles.Remove(vehicle);
+
+        private IQueryable<Vehicle> ApplyOrdering(VehicleQuery queryObj, IQueryable<Vehicle> query, Dictionary<string, Expression<Func<Vehicle, object>>> columnsMap) 
+        {
+            if(queryObj.IsSortAscending)
+                return query.OrderBy(columnsMap[queryObj.SortBy]);
+            else
+                return query.OrderByDescending(columnsMap[queryObj.SortBy]);
+        }
 
     }
 }
