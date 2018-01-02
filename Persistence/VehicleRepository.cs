@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SaleIt.Core;
 using SaleIt.Core.Models;
+using SaleIt.Extensions;
 
 namespace SaleIt.Persistence
 {
@@ -52,7 +53,7 @@ namespace SaleIt.Persistence
               ["id"] = v => v.Id   
             };
 
-            query = ApplyOrdering(queryObj, query, columnsMap);
+            query = query.ApplyOrdering(queryObj, columnsMap);
 
             return await query.ToListAsync();
         }
@@ -60,15 +61,7 @@ namespace SaleIt.Persistence
         public async Task AddAsync(Vehicle vehicle) =>
             await context.AddAsync(vehicle);
         public void Remove(Vehicle vehicle) =>
-            context.Vehicles.Remove(vehicle);
-
-        private IQueryable<Vehicle> ApplyOrdering(VehicleQuery queryObj, IQueryable<Vehicle> query, Dictionary<string, Expression<Func<Vehicle, object>>> columnsMap) 
-        {
-            if(queryObj.IsSortAscending)
-                return query.OrderBy(columnsMap[queryObj.SortBy]);
-            else
-                return query.OrderByDescending(columnsMap[queryObj.SortBy]);
-        }
+            context.Vehicles.Remove(vehicle); 
 
     }
 }
