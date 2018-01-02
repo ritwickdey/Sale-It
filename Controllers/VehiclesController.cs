@@ -113,11 +113,11 @@ namespace SaleIt.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetVehiclesAsync(FilterResource filterResource)
+        public async Task<IActionResult> GetVehiclesAsync(VehicleQueryResource filterResource)
         {
             try
             {
-                var filter = mapper.Map<FilterResource, Filter>(filterResource);
+                var filter = mapper.Map<VehicleQueryResource, VehicleQuery>(filterResource);
                 var vehicles = await repository.GetVehiclesAsync(filter);
                 var vehiclesResource = mapper.Map<IEnumerable<Vehicle>, IEnumerable<VehicleResource>>(vehicles);
                 return Ok(vehiclesResource);

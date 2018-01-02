@@ -29,7 +29,7 @@ namespace SaleIt.Persistence
 
         }
 
-        public async Task<IEnumerable<Vehicle>> GetVehiclesAsync(Filter filter)
+        public async Task<IEnumerable<Vehicle>> GetVehiclesAsync(VehicleQuery filter)
         {
             var query = context.Vehicles
                 .Include(v => v.Model)
