@@ -3,6 +3,12 @@ export interface IKeyValuePair {
     name: string;
 }
 
+export interface IMake extends IKeyValuePair {
+    models: IModel[];
+}
+
+export interface IModel extends IKeyValuePair { }
+
 export interface IContact {
     name: string;
     phone: string;

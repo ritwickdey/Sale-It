@@ -8,9 +8,16 @@
 <div class="well">
   <div class="form-group">
     <label for="make">Make</label>
-    <select [(ngModel)]="filter.makeId" (change)="onFilterChange()" id="make" class="form-control">
+    <select [(ngModel)]="filter.makeId" (change)="onMakeChanges()" id="make" class="form-control">
       <option value=""></option>
       <option *ngFor="let m of makes" [value]="m.id">{{m.name}}</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="model">Model</label>
+    <select [(ngModel)]="filter.modelId" (change)="onModelChnages()" id="model" class="form-control">
+      <option value=""></option>
+      <option *ngFor="let m of models" [value]="m.id">{{m.name}}</option>
     </select>
   </div>
   <button class="btn btn-default" (click)="resetFilter()" >Reset</button>

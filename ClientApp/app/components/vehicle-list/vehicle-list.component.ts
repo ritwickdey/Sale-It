@@ -1,4 +1,4 @@
-import { IVehicle, IKeyValuePair } from './../../models/vehicle';
+import { IVehicle, IKeyValuePair, IMake, IModel } from './../../models/vehicle';
 import { VehicleService } from './../../services/vehicle.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -10,7 +10,8 @@ import { Component, OnInit } from '@angular/core';
 export class VehicleListComponent implements OnInit {
 
   vehicles: IVehicle[] = [];
-  makes: IKeyValuePair[] = [];
+  makes: IMake[] = [];
+  models: IModel[] = [];
   filter: any = {};
 
   constructor(private vehicleService: VehicleService) { }
@@ -25,14 +26,29 @@ export class VehicleListComponent implements OnInit {
     this.populateVehicle();
   }
 
-  private populateVehicle() {
-    this.vehicleService.getVehicles(this.filter)
-      .subscribe((results: IVehicle[]) => this.vehicles = results);
-  }
-
   resetFilter() {
     this.filter = {};
     this.onFilterChange();
+  }
+
+  onMakeChanges() {
+    this.populateMakes();
+    this.onFilterChange();
+    delete this.filter.modelId;
+  }
+
+  onModelChnages() {
+    this.onFilterChange();
+  }
+
+  populateMakes() {
+    const make: IMake = this.makes.find(e => e.id == this.filter.makeId) || {} as IMake;
+    this.models = make.models;
+  }
+
+  private populateVehicle() {
+    this.vehicleService.getVehicles(this.filter)
+      .subscribe((results: IVehicle[]) => this.vehicles = results);
   }
 
 }
