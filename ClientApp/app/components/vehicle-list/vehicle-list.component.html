@@ -25,11 +25,20 @@
 <table class="table table-responsive table-striped">
   <thead>
     <tr>
-      <th (click)="sortBy('id')" >Id</th>
-      <th (click)="sortBy('make')" >Make</th>
-      <th (click)="sortBy('model')" >Model</th>
-      <th (click)="sortBy('contactname')" >Contact Name</th>
-      <th></th>
+      <th *ngFor="let c of coloums" >
+        <div *ngIf="c.isSortable" (click)="sortBy(c.key)">
+            {{c.title}}
+            <i *ngIf="query.sortBy !== c.key" class="fa fa-sort"></i>
+            <i *ngIf="query.sortBy === c.key" 
+              class="fa"
+              [class.fa-sort-desc]="!query.isSortAscending"
+              [class.fa-sort-asc]="query.isSortAscending">
+          </i>
+        </div>
+        <div *ngIf="!c.isSortable">
+            {{c.title}}
+        </div>
+      </th>
     </tr>
   </thead>
   <tbody>

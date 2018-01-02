@@ -13,6 +13,13 @@ export class VehicleListComponent implements OnInit {
   makes: IMake[] = [];
   models: IModel[] = [];
   query: any = {};
+  coloums: { title?, key?, isSortable?}[] = [
+    { title: 'id', key: 'id', isSortable: true },
+    { title: 'Make', key: 'make', isSortable: true },
+    { title: 'Model', key: 'model', isSortable: true },
+    { title: 'Contact Name', key: 'contactname', isSortable: true },
+    {},
+  ];
 
   constructor(private vehicleService: VehicleService) { }
 
@@ -48,11 +55,11 @@ export class VehicleListComponent implements OnInit {
 
   sortBy(columnName: string) {
     if (this.query.sortBy === columnName) {
-      this.query.IsSortAscending = !this.query.IsSortAscending;
+      this.query.isSortAscending = !this.query.isSortAscending;
     }
     else {
       this.query.sortBy = columnName;
-      this.query.IsSortAscending = true;
+      this.query.isSortAscending = true;
     }
     this.populateVehicle();
   }
