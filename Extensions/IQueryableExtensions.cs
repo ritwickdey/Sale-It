@@ -8,7 +8,7 @@ namespace SaleIt.Extensions
 {
     public static class IQueryableExtensions
     {
-        public static IQueryable<Vehicle> ApplyOrdering(this IQueryable<Vehicle> query, VehicleQuery queryObj, Dictionary<string, Expression<Func<Vehicle, object>> > columnsMap)
+        public static IQueryable<T> ApplyOrdering<T>(this IQueryable<T> query, IQueryObject queryObj, Dictionary<string, Expression<Func<T, object>> > columnsMap)
         {
             if (String.IsNullOrWhiteSpace(queryObj.SortBy) || !columnsMap.ContainsKey(queryObj.SortBy))
                 return query;
