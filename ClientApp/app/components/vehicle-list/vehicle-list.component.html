@@ -8,14 +8,14 @@
 <div class="well">
   <div class="form-group">
     <label for="make">Make</label>
-    <select [(ngModel)]="filter.makeId" (change)="onMakeChanges()" id="make" class="form-control">
+    <select [(ngModel)]="query.makeId" (change)="onMakeChanges()" id="make" class="form-control">
       <option value=""></option>
       <option *ngFor="let m of makes" [value]="m.id">{{m.name}}</option>
     </select>
   </div>
   <div class="form-group">
     <label for="model">Model</label>
-    <select [(ngModel)]="filter.modelId" (change)="onModelChnages()" id="model" class="form-control">
+    <select [(ngModel)]="query.modelId" (change)="onModelChnages()" id="model" class="form-control">
       <option value=""></option>
       <option *ngFor="let m of models" [value]="m.id">{{m.name}}</option>
     </select>
@@ -25,10 +25,10 @@
 <table class="table table-responsive table-striped">
   <thead>
     <tr>
-      <th>Id</th>
-      <th>Make</th>
-      <th>Model</th>
-      <th>Contact Name</th>
+      <th (click)="sortBy('id')" >Id</th>
+      <th (click)="sortBy('make')" >Make</th>
+      <th (click)="sortBy('model')" >Model</th>
+      <th (click)="sortBy('contactname')" >Contact Name</th>
       <th></th>
     </tr>
   </thead>

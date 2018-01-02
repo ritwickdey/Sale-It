@@ -12,7 +12,7 @@ export class VehicleListComponent implements OnInit {
   vehicles: IVehicle[] = [];
   makes: IMake[] = [];
   models: IModel[] = [];
-  filter: any = {};
+  query: any = {};
 
   constructor(private vehicleService: VehicleService) { }
 
@@ -27,14 +27,14 @@ export class VehicleListComponent implements OnInit {
   }
 
   resetFilter() {
-    this.filter = {};
+    this.query = {};
     this.onFilterChange();
   }
 
   onMakeChanges() {
     this.populateMakes();
     this.onFilterChange();
-    delete this.filter.modelId;
+    delete this.query.modelId;
   }
 
   onModelChnages() {
@@ -42,12 +42,23 @@ export class VehicleListComponent implements OnInit {
   }
 
   populateMakes() {
-    const make: IMake = this.makes.find(e => e.id == this.filter.makeId) || {} as IMake;
+    const make: IMake = this.makes.find(e => e.id == this.query.makeId) || {} as IMake;
     this.models = make.models;
   }
 
+  sortBy(columnName: string) {
+    if (this.query.sortBy === columnName) {
+      this.query.IsSortAscending = !this.query.IsSortAscending;
+    }
+    else {
+      this.query.sortBy = columnName;
+      this.query.IsSortAscending = true;
+    }
+    this.populateVehicle();
+  }
+
   private populateVehicle() {
-    this.vehicleService.getVehicles(this.filter)
+    this.vehicleService.getVehicles(this.query)
       .subscribe((results: IVehicle[]) => this.vehicles = results);
   }
 
