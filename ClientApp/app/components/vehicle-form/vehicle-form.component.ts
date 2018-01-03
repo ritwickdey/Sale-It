@@ -37,7 +37,7 @@ export class VehicleFormComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.vehicle.id = +this.route.snapshot.params['id'];
+    this.vehicle.id = +this.route.snapshot.params['id'] || 0;
     const sources = [
       this.vehicleService.getFeatures(),
       this.vehicleService.getMakes(),
@@ -72,29 +72,12 @@ export class VehicleFormComponent implements OnInit {
   }
 
   submit() {
-    if (!this.vehicle.id) {
-      delete this.vehicle.id;
-      this.vehicleService
-        .create(this.vehicle)
-        .subscribe((x:IVehicle) => {
-          this.showSuccessToast({
-            msg: 'Vehicle is successfully created'
-          });
-          this.router.navigate(['/vehicles', x.id]);
-        });
-    }
-    else {
-      this.vehicleService
-        .update(this.vehicle)
-        .subscribe(x => {
-          this.showSuccessToast({
-            msg: 'Vehicle is successfully updated'
-          });
-          this.router.navigate(['/vehicles', this.vehicle.id]);
-        });
-    }
-
-
+    const operation$ = !this.vehicle.id ? this.vehicleService.create(this.vehicle) : this.vehicleService.update(this.vehicle);
+    const msg = 'Vehicle is successfully' + !this.vehicle.id ? 'created' : 'saved';
+    operation$.subscribe((vehicle: IVehicle) => {
+        this.showSuccessToast({ msg });
+        this.router.navigate(['/vehicles', vehicle.id]);
+      });
   }
 
   private showSuccessToast(obj: { title?: string; msg?: string }) {
