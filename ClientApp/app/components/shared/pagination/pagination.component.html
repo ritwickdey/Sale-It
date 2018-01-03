@@ -1,0 +1,17 @@
+<div *ngIf="totalItems > pageSize">
+  <ul class="pagination">
+    <li (click)="previous()" [class.disabled]="currentPage == 1">
+      <a>
+        <li class="fa fa-arrow-left"></li>
+      </a>
+    </li>
+    <li *ngFor="let p of pages" (click)="pageChange(p)" [class.active]="currentPage == p">
+      <a>{{p}}</a>
+    </li>
+    <li (click)="next()" [class.disabled]="currentPage == pages.length">
+      <a>
+        <li class="fa fa-arrow-right"></li>
+      </a>
+    </li>
+  </ul>
+</div>

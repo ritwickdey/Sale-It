@@ -20,23 +20,20 @@
       <option *ngFor="let m of models" [value]="m.id">{{m.name}}</option>
     </select>
   </div>
-  <button class="btn btn-default" (click)="resetFilter()" >Reset</button>
+  <button class="btn btn-default" (click)="resetFilter()">Reset</button>
 </div>
 <table class="table table-responsive table-striped">
   <thead>
     <tr>
-      <th *ngFor="let c of coloums" >
+      <th *ngFor="let c of coloums">
         <div *ngIf="c.isSortable" (click)="sortBy(c.key)">
-            {{c.title}}
-            <i *ngIf="query.sortBy !== c.key" class="fa fa-sort"></i>
-            <i *ngIf="query.sortBy === c.key" 
-              class="fa"
-              [class.fa-sort-desc]="!query.isSortAscending"
-              [class.fa-sort-asc]="query.isSortAscending">
+          {{c.title}}
+          <i *ngIf="query.sortBy !== c.key" class="fa fa-sort"></i>
+          <i *ngIf="query.sortBy === c.key" class="fa" [class.fa-sort-desc]="!query.isSortAscending" [class.fa-sort-asc]="query.isSortAscending">
           </i>
         </div>
         <div *ngIf="!c.isSortable">
-            {{c.title}}
+          {{c.title}}
         </div>
       </th>
     </tr>
@@ -53,3 +50,4 @@
     </tr>
   </tbody>
 </table>
+<app-pagination [total-items]="17" [page-size]="3"></app-pagination>
