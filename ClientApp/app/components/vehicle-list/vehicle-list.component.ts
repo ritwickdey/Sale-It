@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VehicleListComponent implements OnInit {
 
-  vehicles: IVehicle[] = [];
+  queryResult: any = {};
   makes: IMake[] = [];
   models: IModel[] = [];
   query: any = {
@@ -24,7 +24,6 @@ export class VehicleListComponent implements OnInit {
   ];
 
   constructor(private vehicleService: VehicleService) { }
-
   ngOnInit() {
     this.vehicleService.getMakes()
       .subscribe(result => this.makes = result);
@@ -73,7 +72,7 @@ export class VehicleListComponent implements OnInit {
 
   private populateVehicle() {
     this.vehicleService.getVehicles(this.query)
-      .subscribe((results: IVehicle[]) => this.vehicles = results);
+      .subscribe(results => this.queryResult = results);
   }
 
 }
