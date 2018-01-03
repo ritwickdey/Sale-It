@@ -40,6 +40,8 @@
   </div>
   <div id="photos" class="tab-pane fade">
     <h3>Photos</h3>
-    <input type="file" accept=".jpg, .jpeg, .png"  #fileInput (change)="uploadPhoto()">
+    <input type="file" accept=".jpg, .jpeg, .png" #fileInput (change)="uploadPhoto()">
+    <br>
+    <img *ngFor="let p of photos" [src]="'/uploads/'+p.fileName" class="img-thumbnail">
   </div>
 </div>

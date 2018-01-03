@@ -14,6 +14,8 @@ export class ViewVehicleComponent implements OnInit {
 
   @ViewChild('fileInput') fileInput: ElementRef
   vehicle: IVehicle;
+  photos: any[] = [];
+
   constructor(
     private vehicleService: VehicleService,
     private photoService: PhotoService,
@@ -25,10 +27,10 @@ export class ViewVehicleComponent implements OnInit {
   ngOnInit() {
     const vehicleId = this.route.snapshot.params.id;
     this.vehicleService.getVehicle(vehicleId)
-      .subscribe(data => {
-        this.vehicle = data;
-        console.log(data)
-      })
+      .subscribe(data => this.vehicle = data);
+
+    this.photoService.getPhotos(vehicleId)
+      .subscribe(data => this.photos = data);
   }
 
   onDelete() {
@@ -48,13 +50,19 @@ export class ViewVehicleComponent implements OnInit {
   uploadPhoto() {
     const nativeElem: HTMLInputElement = this.fileInput.nativeElement;
     this.photoService.upload(this.vehicle.id, nativeElem.files![0])
-      .subscribe(data => console.log(data));
+      .subscribe(photo => {
+        nativeElem.value = '';
+        this.showSuccessToast({
+          msg: 'The photo is uploaded successfully'
+        });
+        this.photos.push(photo);
+      });
   }
 
-  private showSuccessToast(obj: { title?: string; msg?: string }) {
+  private showSuccessToast(obj?: { title?: string; msg?: string }) {
     this.toastyService.success({
-      title: obj.title || 'Success',
-      msg: obj.msg || 'Done',
+      title: obj!.title || 'Success',
+      msg: obj!.msg || 'Done',
       theme: 'bootstrap',
       timeout: 3000
     })

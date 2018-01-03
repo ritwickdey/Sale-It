@@ -21,4 +21,11 @@ export class PhotoService {
       .catch((err: HttpErrorResponse) => Observable.throw(err));
   }
 
+  getPhotos(vehicleId: number) {
+    return this.http
+      .get(`/api/vehicles/${vehicleId}/photos`, { observe: 'response' })
+      .map((data: HttpResponse<any>) => data.body)
+      .catch((err: HttpErrorResponse) => Observable.throw(err));
+  }
+
 }
