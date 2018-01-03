@@ -74,32 +74,27 @@ export class VehicleFormComponent implements OnInit {
   submit() {
     if (!this.vehicle.id) {
       delete this.vehicle.id;
-      return this.vehicleService
-        .create(this.vehicle)
-        .subscribe(x => this.showSuccessToast({
-          msg: 'Vehicle is successfully created'
-        }));
-    }
-
-    this.vehicleService
-      .update(this.vehicle)
-      .subscribe(x => this.showSuccessToast({
-        msg: 'Vehicle is successfully updated'
-      }));
-  }
-
-  onDelete() {
-    if (confirm('Are you sure?')) {
       this.vehicleService
-        .delete(this.vehicle.id)
-        .subscribe(x => {
+        .create(this.vehicle)
+        .subscribe((x:IVehicle) => {
           this.showSuccessToast({
-            title: 'Deleted',
-            msg: 'Vehicle is successfully deleted'
+            msg: 'Vehicle is successfully created'
           });
-          this.router.navigateByUrl('/');
+          this.router.navigate(['/vehicles', x.id]);
         });
     }
+    else {
+      this.vehicleService
+        .update(this.vehicle)
+        .subscribe(x => {
+          this.showSuccessToast({
+            msg: 'Vehicle is successfully updated'
+          });
+          this.router.navigate(['/vehicles', this.vehicle.id]);
+        });
+    }
+
+
   }
 
   private showSuccessToast(obj: { title?: string; msg?: string }) {
