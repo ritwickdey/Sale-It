@@ -11,9 +11,10 @@ using System;
 namespace SaleIt.Migrations
 {
     [DbContext(typeof(SaleItDbContext))]
-    partial class SaleItDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180103151948_AddPhoto")]
+    partial class AddPhoto
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
