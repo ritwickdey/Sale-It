@@ -9,11 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VehicleListComponent implements OnInit {
 
+  private readonly PAGE_SIZE = 3;
+
   queryResult: any = {};
   makes: IMake[] = [];
   models: IModel[] = [];
   query: any = {
-    pageSize: 3
+    pageSize: this.PAGE_SIZE
   };
   coloums: { title?, key?, isSortable?}[] = [
     { title: 'id', key: 'id', isSortable: true },
@@ -31,18 +33,23 @@ export class VehicleListComponent implements OnInit {
   }
 
   onFilterChange() {
+    this.query.page = 1;
+    this.query.pageSize = this.PAGE_SIZE;
     this.populateVehicle();
   }
 
   resetFilter() {
-    this.query = {};
-    this.onFilterChange();
+    this.query = {
+      page: 1,
+      pageSize: this.PAGE_SIZE
+    };
+    this.populateVehicle();
   }
 
   onMakeChanges() {
     this.populateMakes();
-    this.onFilterChange();
     delete this.query.modelId;
+    this.onFilterChange();
   }
 
   onModelChnages() {
