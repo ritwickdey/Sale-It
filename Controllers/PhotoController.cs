@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
@@ -39,11 +38,17 @@ namespace SaleIt.Controllers
         [HttpPost]
         public async Task<IActionResult> Upload(int vehicleId, IFormFile file)
         {
-            if (file == null) return BadRequest(new { error = "Null File" });
-            if (file.Length == 0) return BadRequest(new { error = "Empty File" });
-            if (!photoSettings.SupportedFilesType.Any(s => s == Path.GetExtension(file.FileName)?.ToLower()))
+            if (file == null)
+                return BadRequest(new { error = "Null File" });
+
+            if (file.Length == 0)
+                return BadRequest(new { error = "Empty File" });
+
+            if (!photoSettings.IsSupported(Path.GetExtension(file.FileName)))
                 return BadRequest(new { error = $"Unsupported File. Supported files are {String.Join(", ", photoSettings.SupportedFilesType).ToUpper()}" });
-            if (file.Length > photoSettings.MaxBytes) return BadRequest(new { error = "File Size exceeds 1MB" });
+
+            if (file.Length > photoSettings.MaxBytes)
+                return BadRequest(new { error = "File Size exceeds 1MB" });
 
             var vehicle = await repository.GetVehicleAsync(vehicleId, includeRelated: false);
 
