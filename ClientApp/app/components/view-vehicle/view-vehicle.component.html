@@ -9,8 +9,8 @@
   </li>
 </ul>
 
-<div class="tab-content">
-  <div *ngIf="vehicle" id="basic" class="tab-pane fade in active">
+<div *ngIf="vehicle" class="tab-content">
+  <div id="basic" class="tab-pane fade in active">
     <h3>Basic</h3>
     <ul>
       <li>Make: {{vehicle.make.name}}</li>
@@ -40,5 +40,6 @@
   </div>
   <div id="photos" class="tab-pane fade">
     <h3>Photos</h3>
+    <input type="file" accept=".jpg, .jpeg, .png"  #fileInput (change)="uploadPhoto()">
   </div>
 </div>

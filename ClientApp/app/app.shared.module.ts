@@ -17,6 +17,7 @@ import { VehicleFormComponent } from './components/vehicle-form/vehicle-form.com
 import { VehicleListComponent } from './components/vehicle-list/vehicle-list.component';
 import { PaginationComponent } from './components/shared/pagination/pagination.component';
 import { ViewVehicleComponent } from './components/view-vehicle/view-vehicle.component';
+import { PhotoService } from './services/photo.service';
 
 Raven
     .config('https://7f92c57a5c6f444c9f3db19ece042de5@sentry.io/265466')
@@ -53,7 +54,8 @@ Raven
         ])
     ],
     providers: [
-        VehicleService
+        VehicleService,
+        PhotoService
     ]
 })
 export class AppModuleShared {

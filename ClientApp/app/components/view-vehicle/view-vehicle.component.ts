@@ -1,7 +1,8 @@
+import { PhotoService } from './../../services/photo.service';
 import { ToastyService } from 'ng2-toasty';
 import { VehicleService } from './../../services/vehicle.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { IVehicle } from '../../models/vehicle';
 
 @Component({
@@ -11,9 +12,11 @@ import { IVehicle } from '../../models/vehicle';
 })
 export class ViewVehicleComponent implements OnInit {
 
+  @ViewChild('fileInput') fileInput: ElementRef
   vehicle: IVehicle;
   constructor(
     private vehicleService: VehicleService,
+    private photoService: PhotoService,
     private router: Router,
     private route: ActivatedRoute,
     private toastyService: ToastyService
@@ -22,7 +25,7 @@ export class ViewVehicleComponent implements OnInit {
   ngOnInit() {
     const vehicleId = this.route.snapshot.params.id;
     this.vehicleService.getVehicle(vehicleId)
-      .subscribe(data =>{ 
+      .subscribe(data => {
         this.vehicle = data;
         console.log(data)
       })
@@ -40,6 +43,12 @@ export class ViewVehicleComponent implements OnInit {
           this.router.navigateByUrl('/');
         });
     }
+  }
+
+  uploadPhoto() {
+    const nativeElem: HTMLInputElement = this.fileInput.nativeElement;
+    this.photoService.upload(this.vehicle.id, nativeElem.files![0])
+      .subscribe(data => console.log(data));
   }
 
   private showSuccessToast(obj: { title?: string; msg?: string }) {
