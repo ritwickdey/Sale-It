@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VehicleListComponent implements OnInit {
 
-  private readonly PAGE_SIZE = 3;
+  private readonly PAGE_SIZE = 5;
 
   queryResult: any = {};
   makes: IMake[] = [];
@@ -69,6 +69,9 @@ export class VehicleListComponent implements OnInit {
       this.query.sortBy = columnName;
       this.query.isSortAscending = true;
     }
+
+    this.query.page = 1;
+    this.queryResult.totalItems += 0.1; //tricky way ^_^
     this.populateVehicle();
   }
 
