@@ -50,4 +50,4 @@
     </tr>
   </tbody>
 </table>
-<app-pagination [total-items]="17" [page-size]="3"></app-pagination>
+<app-pagination [total-items]="10" [page-size]="query.pageSize" (page-changed)= "onPageChnaged($event)"></app-pagination>

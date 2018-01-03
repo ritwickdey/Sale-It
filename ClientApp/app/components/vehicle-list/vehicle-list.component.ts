@@ -12,7 +12,9 @@ export class VehicleListComponent implements OnInit {
   vehicles: IVehicle[] = [];
   makes: IMake[] = [];
   models: IModel[] = [];
-  query: any = {};
+  query: any = {
+    pageSize: 3
+  };
   coloums: { title?, key?, isSortable?}[] = [
     { title: 'id', key: 'id', isSortable: true },
     { title: 'Make', key: 'make', isSortable: true },
@@ -61,6 +63,11 @@ export class VehicleListComponent implements OnInit {
       this.query.sortBy = columnName;
       this.query.isSortAscending = true;
     }
+    this.populateVehicle();
+  }
+
+  onPageChnaged(val) {
+    this.query.page = val;
     this.populateVehicle();
   }
 
