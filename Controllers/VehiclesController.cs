@@ -118,8 +118,8 @@ namespace SaleIt.Controllers
             try
             {
                 var filter = mapper.Map<VehicleQueryResource, VehicleQuery>(filterResource);
-                var vehicles = await repository.GetVehiclesAsync(filter);
-                var vehiclesResource = mapper.Map<IEnumerable<Vehicle>, IEnumerable<VehicleResource>>(vehicles);
+                var queryResult = await repository.GetVehiclesAsync(filter);
+                var vehiclesResource = mapper.Map<QueryResult<Vehicle>, QueryResultResource<VehicleResource>>(queryResult);
                 return Ok(vehiclesResource);
             }
             catch (Exception)

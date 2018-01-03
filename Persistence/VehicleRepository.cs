@@ -32,8 +32,9 @@ namespace SaleIt.Persistence
 
         }
 
-        public async Task<IEnumerable<Vehicle>> GetVehiclesAsync(VehicleQuery queryObj)
+        public async Task<QueryResult<Vehicle>> GetVehiclesAsync(VehicleQuery queryObj)
         {
+            var result = new QueryResult<Vehicle>(); 
             var query = context.Vehicles
                 .Include(v => v.Model)
                 .ThenInclude(m => m.Make)
@@ -53,11 +54,13 @@ namespace SaleIt.Persistence
               ["id"] = v => v.Id   
             };
 
-            query = query.ApplyOrdering(queryObj, columnsMap);
+            result.TotalItems = await query.CountAsync();
 
+            query = query.ApplyOrdering(queryObj, columnsMap);
             query = query.ApplyPaging(queryObj);
 
-            return await query.ToListAsync();
+            result.Items = await query.ToListAsync();
+            return result;
         }
 
         public async Task AddAsync(Vehicle vehicle) =>

@@ -10,6 +10,7 @@ namespace SaleIt.Mapping
         public MappingProfile()
         {
             //Domain Model to API Resource
+            CreateMap(typeof(QueryResult<>), typeof(QueryResultResource<>));
             CreateMap<Make, MakeResource>();
             CreateMap<Model, KeyValuePairResource>();
             CreateMap<Feature, KeyValuePairResource>();
