@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -18,12 +19,14 @@ namespace SaleIt.Controllers
         private readonly IHostingEnvironment host;
         private readonly PhotoSettings photoSettings;
         private readonly IVehicleRepository repository;
+        private readonly IPhotoRepository photoRepository;
         private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
 
         public PhotoController(
             IHostingEnvironment host,
             IVehicleRepository repository,
+            IPhotoRepository photoRepository,
             IUnitOfWork unitOfWork,
             IMapper mapper,
             IOptionsSnapshot<PhotoSettings> options)
@@ -31,6 +34,7 @@ namespace SaleIt.Controllers
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
             this.repository = repository;
+            this.photoRepository = photoRepository;
             this.host = host;
             this.photoSettings = options.Value;
         }
@@ -70,6 +74,15 @@ namespace SaleIt.Controllers
             vehicle.Photos.Add(photo);
             await unitOfWork.CompleteAsync();
             var photoResource = mapper.Map<Photo, PhotoResource>(photo);
+            return Ok(photoResource);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetPhotosAsync(int vehicleId)
+        {
+            var photos = await photoRepository.GetPhotosAsync(vehicleId);
+
+            var photoResource =  mapper.Map<IEnumerable<Photo>, IEnumerable<PhotoResource>>(photos);
             return Ok(photoResource);
         }
     }
