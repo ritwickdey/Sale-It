@@ -1,0 +1,23 @@
+.images {
+    display: flex;
+    flex-wrap: wrap;
+    width: 85%;
+    flex-direction: row;
+}
+
+.images .image {
+    width: 33%;
+}
+
+.images .image img {
+    width: 90%;
+    height: 90%;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 7px 6px 8px rgba(0, 0, 0, 0.3);
+}
+
+.images .image img:hover {
+    transform: scale(1.15);
+    z-index: 5;
+}
+

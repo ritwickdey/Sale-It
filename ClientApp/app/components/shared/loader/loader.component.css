@@ -1,0 +1,28 @@
+#load-progress {
+    --color: #1818ff;
+    height: 3px;
+    width: 50%;
+    background-color: var(--color);
+    display: block;
+    position: fixed;
+    z-index: 500;
+    border: 1px solid var(--color);
+    border-radius: 0 10px 10px 0;
+    box-shadow: 0 0 7px 0;
+    transition: all 0.2s ease-in;
+}
+
+#load-progress::after {
+    content: '';
+    height: 10px;
+    width: 22px;
+    display: inline-block;
+    position: absolute;
+    right: -13px;
+    background: var(--color);
+    top: -6px;
+    z-index: 510;
+    border-radius: 0% 23px 10px 100% / 0% 9px 5px 100%;
+    opacity: 1;
+    box-shadow: 3px 0px 8px 0 rgba(0, 0, 0, 0.8);
+}

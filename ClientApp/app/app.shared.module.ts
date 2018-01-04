@@ -18,6 +18,8 @@ import { VehicleListComponent } from './components/vehicle-list/vehicle-list.com
 import { PaginationComponent } from './components/shared/pagination/pagination.component';
 import { ViewVehicleComponent } from './components/view-vehicle/view-vehicle.component';
 import { PhotoService } from './services/photo.service';
+import { LoaderComponent } from './components/shared/loader/loader.component';
+import { LoaderService } from './services/loader.service';
 
 Raven
     .config('https://7f92c57a5c6f444c9f3db19ece042de5@sentry.io/265466')
@@ -33,7 +35,8 @@ Raven
         VehicleFormComponent,
         VehicleListComponent,
         PaginationComponent,
-        ViewVehicleComponent
+        ViewVehicleComponent,
+        LoaderComponent
     ],
     imports: [
         HttpClientModule,
@@ -55,7 +58,8 @@ Raven
     ],
     providers: [
         VehicleService,
-        PhotoService
+        PhotoService,
+        LoaderService
     ]
 })
 export class AppModuleShared {

@@ -1,3 +1,4 @@
+import { LoaderService } from './../../services/loader.service';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { PhotoService } from './../../services/photo.service';
 import { ToastyService } from 'ng2-toasty';
@@ -5,6 +6,8 @@ import { VehicleService } from './../../services/vehicle.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { IVehicle } from '../../models/vehicle';
+
+import 'rxjs/add/operator/finally';
 
 @Component({
   selector: 'app-view-vehicle',
@@ -22,7 +25,8 @@ export class ViewVehicleComponent implements OnInit {
     private photoService: PhotoService,
     private router: Router,
     private route: ActivatedRoute,
-    private toastyService: ToastyService
+    private toastyService: ToastyService,
+    private loaderService: LoaderService
   ) { }
 
   ngOnInit() {
@@ -51,20 +55,13 @@ export class ViewVehicleComponent implements OnInit {
   uploadPhoto() {
     const nativeElem: HTMLInputElement = this.fileInput.nativeElement;
     this.photoService.upload(this.vehicle.id, nativeElem.files![0])
+      .finally(() => nativeElem.value = "")
       .subscribe((event: HttpEvent<any>) => {
-        switch (event.type) {
-          case HttpEventType.UploadProgress:
-            console.log(Math.round((event.loaded / event.total! * 100)));
-            break;
-          case HttpEventType.ResponseHeader:
-            console.log('Response header received!');
-            break;
-          case HttpEventType.Sent:
-            console.log('Request sent!');
-            break;
-          case HttpEventType.Response:
-            this.photos.push(event.body);
-        }
+        
+        this.loaderService.display(event);
+
+        if (event.type == HttpEventType.Response)
+          this.photos.push(event.body);
       });
   }
 

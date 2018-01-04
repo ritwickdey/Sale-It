@@ -42,6 +42,10 @@
     <h3>Photos</h3>
     <input type="file" accept=".jpg, .jpeg, .png" #fileInput (change)="uploadPhoto()">
     <br>
-    <img *ngFor="let p of photos" [src]="'/uploads/'+p.fileName" class="img-thumbnail">
+    <div class="images">
+      <div class="image" *ngFor="let p of photos">
+        <img [src]="'/uploads/'+p.fileName" class="img-thumbnail">
+      </div>
+    </div>
   </div>
 </div>
