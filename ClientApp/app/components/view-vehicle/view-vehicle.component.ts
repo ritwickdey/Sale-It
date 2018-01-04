@@ -57,11 +57,17 @@ export class ViewVehicleComponent implements OnInit {
     this.photoService.upload(this.vehicle.id, nativeElem.files![0])
       .finally(() => nativeElem.value = "")
       .subscribe((event: HttpEvent<any>) => {
-        
+
         this.loaderService.display(event);
 
-        if (event.type == HttpEventType.Response)
+        if (event.type == HttpEventType.Response) {
           this.photos.push(event.body);
+          this.showSuccessToast({
+            title: 'Uploaded',
+            msg: 'Vehicle is successfully uploaded'
+          });
+        }
+
       });
   }
 
