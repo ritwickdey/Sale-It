@@ -1,3 +1,4 @@
+import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { PhotoService } from './../../services/photo.service';
 import { ToastyService } from 'ng2-toasty';
 import { VehicleService } from './../../services/vehicle.service';
@@ -50,12 +51,20 @@ export class ViewVehicleComponent implements OnInit {
   uploadPhoto() {
     const nativeElem: HTMLInputElement = this.fileInput.nativeElement;
     this.photoService.upload(this.vehicle.id, nativeElem.files![0])
-      .subscribe(photo => {
-        nativeElem.value = '';
-        this.showSuccessToast({
-          msg: 'The photo is uploaded successfully'
-        });
-        this.photos.push(photo);
+      .subscribe((event: HttpEvent<any>) => {
+        switch (event.type) {
+          case HttpEventType.UploadProgress:
+            console.log(Math.round((event.loaded / event.total! * 100)));
+            break;
+          case HttpEventType.ResponseHeader:
+            console.log('Response header received!');
+            break;
+          case HttpEventType.Sent:
+            console.log('Request sent!');
+            break;
+          case HttpEventType.Response:
+            this.photos.push(event.body);
+        }
       });
   }
 

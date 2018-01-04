@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpErrorResponse, HttpRequest, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
+import { HttpEventType } from '@angular/common/http';
 
 
 @Injectable()
@@ -15,9 +16,11 @@ export class PhotoService {
   upload(vehicleId: number, photo) {
     const formData = new FormData();
     formData.append('file', photo);
-    return this.http
-      .post(`/api/vehicles/${vehicleId}/photos`, formData, { observe: 'response' })
-      .map((data: HttpResponse<any>) => data.body)
+
+    const req = new HttpRequest('POST', `/api/vehicles/${vehicleId}/photos`, formData, {
+      reportProgress: true,
+    });
+    return this.http.request(req)
       .catch((err: HttpErrorResponse) => Observable.throw(err));
   }
 
