@@ -6,20 +6,38 @@ import { tokenNotExpired } from 'angular2-jwt';
 
 @Injectable()
 export class AuthService {
-  constructor() { 
+  
+  lock = new Auth0Lock('OzaV1UwlCTaFjSZg9HtgWtanOWHj3ocD', 'ritwickdey.auth0.com', {
+    auth: {
+      redirectUrl: `http://localhost:5000/vehicles`,
+      responseType: 'token'
+    },
+    theme: {
+      primaryColor: '#3899D8',
+      logo: '/img/icon.png'
+    },  
+    autoclose: true,
+    autofocus: true,
+    params: {
+      scope: 'openid'
+    },
+    languageDictionary: {
+      title: 'Log me in'
+    }
+  });
+
+  constructor() {
     this.lock.on('authenticated', (authResult) => {
       console.log(authResult);
       localStorage.setItem('token', authResult.idToken);
     });
   }
 
-  lock = new Auth0Lock('OzaV1UwlCTaFjSZg9HtgWtanOWHj3ocD', 'ritwickdey.auth0.com', {});
-
-  login() {
+  public login() {
     this.lock.show();
   }
 
-  logout() {
+  public logout() {
     localStorage.removeItem('token');
   }
 
