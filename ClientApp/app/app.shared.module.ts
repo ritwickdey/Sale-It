@@ -20,6 +20,7 @@ import { ViewVehicleComponent } from './components/view-vehicle/view-vehicle.com
 import { PhotoService } from './services/photo.service';
 import { LoaderComponent } from './components/shared/loader/loader.component';
 import { LoaderService } from './services/loader.service';
+import { AuthService } from './services/auth.service';
 
 Raven
     .config('https://7f92c57a5c6f444c9f3db19ece042de5@sentry.io/265466')
@@ -59,7 +60,8 @@ Raven
     providers: [
         VehicleService,
         PhotoService,
-        LoaderService
+        LoaderService,
+        AuthService
     ]
 })
 export class AppModuleShared {
