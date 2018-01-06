@@ -1,3 +1,4 @@
+import { AUTH0_CONFIG } from './../auth0-config/auth0-config';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import Auth0Lock from 'auth0-lock';
@@ -9,38 +10,7 @@ export class AuthService {
 
   profile: any;
   private roles: any[] = [];
-  lock = new Auth0Lock('OzaV1UwlCTaFjSZg9HtgWtanOWHj3ocD', 'ritwickdey.auth0.com', {
-    auth: {
-      redirectUrl: `${window.location.origin}/vehicles`,
-      responseType: 'token',
-      params: {
-        audience: 'https://saleIt.com',
-        scope: 'openid email profile'
-      }
-    },
-    theme: {
-      primaryColor: '#3899D8',
-      logo: '/img/icon.png'
-    },
-    additionalSignUpFields: [
-      {
-        name: 'name',
-        placeholder: 'Full Name',
-        icon: '/img/details-icon.svg',
-        validator: function (name) {
-          return {
-            valid: new RegExp(/^[a-z,.'-]+\s[a-z, .'-]+$/i).test(name),
-            hint: "Enter a valid Full Name"
-          };
-        }
-      }
-    ],
-    autoclose: true,
-    autofocus: true,
-    languageDictionary: {
-      title: 'Log me in'
-    }
-  });
+  lock: any = new Auth0Lock(AUTH0_CONFIG.clientId, AUTH0_CONFIG.domain, AUTH0_CONFIG.options);
 
   constructor() {
     this.profile = JSON.parse(localStorage.getItem('profile')!);
@@ -82,7 +52,7 @@ export class AuthService {
   }
 
   isInRole(rollName) {
-    if(!this.roles) this.roles = [];
+    if (!this.roles) this.roles = [];
     return this.roles.indexOf(rollName) !== -1;
   }
 
