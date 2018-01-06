@@ -25,7 +25,7 @@ export class AuthService {
     localStorage.setItem('token', authResult.accessToken);
     this.lock.getUserInfo(authResult.accessToken, (error, profile) => {
       if (error) throw error;
-      
+
       console.log(profile);
       localStorage.setItem('profile', JSON.stringify(profile));
       this.setRolesAndProfileFromLocalStorage();
@@ -57,6 +57,11 @@ export class AuthService {
   isInRole(rollName) {
     if (!this.roles) this.roles = [];
     return this.roles.indexOf(rollName) !== -1;
+  }
+
+  getLoggedinUserName() {
+    let nickName = this.profile && this.profile.name ? this.profile.name.split(' ')[0] : null;
+    return nickName || this.profile ? this.profile.email : null;
   }
 
   authenticated() {
