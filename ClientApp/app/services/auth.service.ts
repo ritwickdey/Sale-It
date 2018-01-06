@@ -13,8 +13,26 @@ export class AuthService {
   lock: any = new Auth0Lock(AUTH0_CONFIG.clientId, AUTH0_CONFIG.domain, AUTH0_CONFIG.options);
 
   constructor() {
-    this.profile = JSON.parse(localStorage.getItem('profile')!);
+    this.setRolesAndProfileFromLocalStorage();
 
+    this.lock.on('authenticated', (authResult) =>
+      this.onUserAthenticated(authResult)
+    );
+  }
+
+  private onUserAthenticated(authResult: any) {
+    console.log(authResult);
+    localStorage.setItem('token', authResult.accessToken);
+    this.lock.getUserInfo(authResult.accessToken, (error, profile) => {
+      if (error) throw error;
+      
+      console.log(profile);
+      localStorage.setItem('profile', JSON.stringify(profile));
+      this.setRolesAndProfileFromLocalStorage();
+    });
+  }
+
+  private setRolesAndProfileFromLocalStorage() {
     const token = localStorage.getItem('token');
     if (token) {
       const jwtHelper = new JwtHelper();
@@ -22,22 +40,7 @@ export class AuthService {
       this.roles = decodedToken['https://SaleIt.com/roles'];
     }
 
-    this.lock.on('authenticated', (authResult) => {
-      console.log(authResult);
-      localStorage.setItem('token', authResult.accessToken);
-
-      const jwtHelper = new JwtHelper();
-      const decodedToken = jwtHelper.decodeToken(authResult.accessToken);
-      this.roles = decodedToken['https://SaleIt.com/roles'];
-
-      this.lock.getUserInfo(authResult.accessToken, (error, profile) => {
-        if (error) throw error;
-
-        console.log(profile);
-        localStorage.setItem('profile', JSON.stringify(profile));
-        this.profile = profile;
-      });
-    });
+    this.profile = JSON.parse(localStorage.getItem('profile')!);
   }
 
   login() {
