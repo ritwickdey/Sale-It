@@ -33,14 +33,14 @@
     </ul>
     <br>
     <div>
-      <a [routerLink]="['/vehicles', 'edit', vehicle.id]" class="btn btn-primary">Edit</a>
-      <button (click)="onDelete()" class="btn btn-danger">Delete</button>
+      <a *ngIf="authService.authenticated()" [routerLink]="['/vehicles', 'edit', vehicle.id]" class="btn btn-primary">Edit</a>
+      <button *ngIf="authService.authenticated()" (click)="onDelete()" class="btn btn-danger">Delete</button>
       <a [routerLink]="['/vehicles']" class="btn btn-default">View All Vehicles</a>
     </div>
   </div>
   <div id="photos" class="tab-pane fade">
     <h3>Photos</h3>
-    <input type="file" accept=".jpg, .jpeg, .png" #fileInput (change)="uploadPhoto()">
+    <input *ngIf="authService.authenticated()" type="file" accept=".jpg, .jpeg, .png" #fileInput (change)="uploadPhoto()">
     <br>
     <div class="images">
       <div class="image" *ngFor="let p of photos">

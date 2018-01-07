@@ -59,7 +59,7 @@ Raven
             { path: '', redirectTo: 'vehicles', pathMatch: 'full' },
             { path: 'admin', component: AdminComponent, canActivate: [AuthGuardService, AdminAuthGuardService] },
             { path: 'vehicles', component: VehicleListComponent },
-            { path: 'vehicles/new', component: VehicleFormComponent },
+            { path: 'vehicles/new', component: VehicleFormComponent, canActivate: [AuthGuardService] },
             { path: 'vehicles/:id', component: ViewVehicleComponent },
             { path: 'vehicles/edit/:id', component: VehicleFormComponent, canActivate: [AuthGuardService] },
             { path: 'home', component: HomeComponent },

@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth.service';
 import { LoaderService } from './../../services/loader.service';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
 import { PhotoService } from './../../services/photo.service';
@@ -26,7 +27,8 @@ export class ViewVehicleComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private toastyService: ToastyService,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    public authService: AuthService
   ) { }
 
   ngOnInit() {

@@ -1,6 +1,6 @@
 <h2>Vehicles</h2>
 <br>
-<a [routerLink]="['/vehicles','new']">
+<a *ngIf="authService.authenticated()" [routerLink]="['/vehicles','new']">
   <button class="btn btn-primary">New Vehicle</button>
 </a>
 <br>
