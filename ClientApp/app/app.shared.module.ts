@@ -24,6 +24,7 @@ import { AuthService } from './services/auth.service';
 import { AdminComponent } from './components/admin/admin.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { AdminAuthGuardService } from './services/admin-auth-guard.service';
+import { JwtModule } from '@auth0/angular-jwt';
 
 Raven
     .config('https://7f92c57a5c6f444c9f3db19ece042de5@sentry.io/265466')
@@ -49,13 +50,18 @@ Raven
         HttpModule,
         FormsModule,
         ToastyModule.forRoot(),
+        JwtModule.forRoot({
+            config: {
+                tokenGetter: () => localStorage.getItem('token')!
+            }
+        }),
         RouterModule.forRoot([
             { path: '', redirectTo: 'vehicles', pathMatch: 'full' },
             { path: 'admin', component: AdminComponent, canActivate: [AuthGuardService, AdminAuthGuardService] },
             { path: 'vehicles', component: VehicleListComponent },
             { path: 'vehicles/new', component: VehicleFormComponent },
             { path: 'vehicles/:id', component: ViewVehicleComponent },
-            { path: 'vehicles/edit/:id', component: VehicleFormComponent },
+            { path: 'vehicles/edit/:id', component: VehicleFormComponent, canActivate: [AuthGuardService] },
             { path: 'home', component: HomeComponent },
             { path: 'counter', component: CounterComponent },
             { path: 'fetch-data', component: FetchDataComponent },

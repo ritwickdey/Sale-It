@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SaleIt.Controllers.Resources;
 using SaleIt.Core;
@@ -23,6 +24,7 @@ namespace SaleIt.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateVehiclesAsync([FromBody] SaveVehicleResource vehicleResource)
         {
             try
@@ -49,6 +51,7 @@ namespace SaleIt.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> UpdateVehiclesAsync(int id, [FromBody] SaveVehicleResource vehicleResource)
         {
             try
@@ -78,6 +81,7 @@ namespace SaleIt.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]        
         public async Task<IActionResult> DeleteVehiclesAsync(int id)
         {
             try
