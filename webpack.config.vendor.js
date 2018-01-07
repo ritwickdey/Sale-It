@@ -16,10 +16,12 @@ const treeShakableModules = [
 ];
 const nonTreeShakableModules = [
     '@auth0/angular-jwt',
+    'angular2-chartjs',
     'angular2-jwt',
     'auth0-lock',
     'bootstrap',
     'bootstrap/dist/css/bootstrap.css',
+    'chart.js',
     'es6-promise',
     'es6-shim',
     'font-awesome/css/font-awesome.css',
