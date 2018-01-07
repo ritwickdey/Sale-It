@@ -22,6 +22,8 @@ import { LoaderComponent } from './components/shared/loader/loader.component';
 import { LoaderService } from './services/loader.service';
 import { AuthService } from './services/auth.service';
 import { AdminComponent } from './components/admin/admin.component';
+import { AuthGuardService } from './services/auth-guard.service';
+import { AdminAuthGuardService } from './services/admin-auth-guard.service';
 
 Raven
     .config('https://7f92c57a5c6f444c9f3db19ece042de5@sentry.io/265466')
@@ -49,7 +51,7 @@ Raven
         ToastyModule.forRoot(),
         RouterModule.forRoot([
             { path: '', redirectTo: 'vehicles', pathMatch: 'full' },
-            { path: 'admin', component: AdminComponent },
+            { path: 'admin', component: AdminComponent, canActivate: [AdminAuthGuardService] },
             { path: 'vehicles', component: VehicleListComponent },
             { path: 'vehicles/new', component: VehicleFormComponent },
             { path: 'vehicles/:id', component: ViewVehicleComponent },
@@ -64,7 +66,9 @@ Raven
         VehicleService,
         PhotoService,
         LoaderService,
-        AuthService
+        AuthService,
+        AuthGuardService,
+        AdminAuthGuardService
     ]
 })
 export class AppModuleShared {
