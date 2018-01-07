@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SaleIt.Controllers.Resources.Policy;
 using SaleIt.Core;
 using SaleIt.Core.Models;
 using SaleIt.Persistence;
@@ -32,10 +33,18 @@ namespace SaleIt
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddMvc();
 
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(Policies.RequriedAdminRole, policy =>
+                {
+                    policy.RequireClaim("https://SaleIt.com/roles", "admin");
+                });
+            });
+
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme; 
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 
             }).AddJwtBearer(options =>
             {

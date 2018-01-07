@@ -5,6 +5,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SaleIt.Controllers.Resources;
+using SaleIt.Controllers.Resources.Policy;
 using SaleIt.Core;
 using SaleIt.Core.Models;
 
