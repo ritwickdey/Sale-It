@@ -28,6 +28,7 @@ namespace SaleIt
             services.Configure<PhotoSettings>(Configuration.GetSection("PhotoSettings"));
             services.AddAutoMapper();
             services.AddDbContext<SaleItDbContext>(options => options.UseSqlServer(Configuration["connectionString:Default"]));
+            services.AddScoped<IPhotoService, PhotoService>();
             services.AddScoped<IVehicleRepository, VehicleRepository>();
             services.AddScoped<IPhotoRepository, PhotoRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();

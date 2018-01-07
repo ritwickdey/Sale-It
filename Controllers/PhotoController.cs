@@ -20,23 +20,23 @@ namespace SaleIt.Controllers
         private readonly PhotoSettings photoSettings;
         private readonly IVehicleRepository repository;
         private readonly IPhotoRepository photoRepository;
-        private readonly IUnitOfWork unitOfWork;
         private readonly IMapper mapper;
+        private readonly IPhotoService photoService;
 
         public PhotoController(
             IHostingEnvironment host,
             IVehicleRepository repository,
             IPhotoRepository photoRepository,
-            IUnitOfWork unitOfWork,
             IMapper mapper,
+            IPhotoService photoService,
             IOptionsSnapshot<PhotoSettings> options)
         {
-            this.unitOfWork = unitOfWork;
             this.mapper = mapper;
             this.repository = repository;
             this.photoRepository = photoRepository;
             this.host = host;
             this.photoSettings = options.Value;
+            this.photoService = photoService;
         }
 
         [HttpPost]
@@ -60,19 +60,8 @@ namespace SaleIt.Controllers
                 return NotFound();
 
             var uploadFolderPath = Path.Combine(host.WebRootPath, "uploads");
-            if (!Directory.Exists(uploadFolderPath))
-                Directory.CreateDirectory(uploadFolderPath);
+            var photo =  await photoService.uploadPhotoAsync(vehicle,file, uploadFolderPath);
 
-            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-            var filePath = Path.Combine(uploadFolderPath, fileName);
-
-            using(var stream = new FileStream(filePath, FileMode.Create))
-            {
-                await file.CopyToAsync(stream);
-            }
-            var photo = new Photo { FileName = fileName };
-            vehicle.Photos.Add(photo);
-            await unitOfWork.CompleteAsync();
             var photoResource = mapper.Map<Photo, PhotoResource>(photo);
             return Ok(photoResource);
         }
@@ -82,7 +71,7 @@ namespace SaleIt.Controllers
         {
             var photos = await photoRepository.GetPhotosAsync(vehicleId);
 
-            var photoResource =  mapper.Map<IEnumerable<Photo>, IEnumerable<PhotoResource>>(photos);
+            var photoResource = mapper.Map<IEnumerable<Photo>, IEnumerable<PhotoResource>>(photos);
             return Ok(photoResource);
         }
     }
