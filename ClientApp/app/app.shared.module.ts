@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { ToastyModule } from 'ng2-toasty';
+import { ChartModule } from 'angular2-chartjs';
 
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
@@ -50,6 +51,7 @@ Raven
         HttpModule,
         FormsModule,
         ToastyModule.forRoot(),
+        ChartModule,
         JwtModule.forRoot({
             config: {
                 tokenGetter: () => localStorage.getItem('token')!
