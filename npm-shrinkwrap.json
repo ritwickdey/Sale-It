@@ -1064,20 +1064,6 @@
       "integrity": "sha1-GcenYEc3dEaPILLS0DNyrX1Mv10=",
       "dev": true
     },
-    "auth0-js": {
-      "version": "9.0.2",
-      "resolved": "https://registry.npmjs.org/auth0-js/-/auth0-js-9.0.2.tgz",
-      "integrity": "sha1-Q1wsnEuBn/M7mjE3ZEunxgNVVes=",
-      "dev": true,
-      "requires": {
-        "base64-js": "1.2.1",
-        "idtoken-verifier": "1.1.0",
-        "qs": "6.4.0",
-        "superagent": "3.8.2",
-        "url-join": "1.1.0",
-        "winchan": "0.2.0"
-      }
-    },
     "auth0-lock": {
       "version": "11.0.1",
       "resolved": "https://registry.npmjs.org/auth0-lock/-/auth0-lock-11.0.1.tgz",
