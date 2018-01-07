@@ -51,7 +51,7 @@ Raven
         ToastyModule.forRoot(),
         RouterModule.forRoot([
             { path: '', redirectTo: 'vehicles', pathMatch: 'full' },
-            { path: 'admin', component: AdminComponent, canActivate: [AdminAuthGuardService] },
+            { path: 'admin', component: AdminComponent, canActivate: [AuthGuardService, AdminAuthGuardService] },
             { path: 'vehicles', component: VehicleListComponent },
             { path: 'vehicles/new', component: VehicleFormComponent },
             { path: 'vehicles/:id', component: ViewVehicleComponent },
