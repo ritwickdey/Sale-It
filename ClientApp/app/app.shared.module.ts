@@ -1,3 +1,4 @@
+import { VehicleReportService } from './services/vehicle-report.service';
 import * as Raven from 'raven-js';
 import { HttpClientModule } from '@angular/common/http';
 import { VehicleService } from './services/vehicle.service';
@@ -76,7 +77,8 @@ Raven
         LoaderService,
         AuthService,
         AuthGuardService,
-        AdminAuthGuardService
+        AdminAuthGuardService,
+        VehicleReportService
     ]
 })
 export class AppModuleShared {
