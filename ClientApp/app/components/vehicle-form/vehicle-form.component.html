@@ -1,4 +1,4 @@
-<h1>New Vehicle</h1>
+<h1>{{!this.vehicle.id ? "New": "Update" }} Vehicle</h1>
 <form (ngSubmit)="submit()" #f="ngForm" novalidate>
   <div class="form-group">
     <label for="make">Make*</label>

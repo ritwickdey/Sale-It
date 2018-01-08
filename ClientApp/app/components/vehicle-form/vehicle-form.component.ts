@@ -73,7 +73,7 @@ export class VehicleFormComponent implements OnInit {
 
   submit() {
     const operation$ = !this.vehicle.id ? this.vehicleService.create(this.vehicle) : this.vehicleService.update(this.vehicle);
-    const msg = 'Vehicle is successfully' + !this.vehicle.id ? 'created' : 'saved';
+    const msg = 'Vehicle is successfully ' + (!this.vehicle.id ? 'created' : 'saved');
     operation$.subscribe((vehicle: IVehicle) => {
         this.showSuccessToast({ msg });
         this.router.navigate(['/vehicles', vehicle.id]);
