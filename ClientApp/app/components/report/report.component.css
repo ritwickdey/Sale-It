@@ -1,0 +1,10 @@
+.chart-size {
+    position: relative;
+    width: 60vw
+}
+
+@media(max-width:800px) {
+    .chart-size {
+        width: 95vw
+    }
+}

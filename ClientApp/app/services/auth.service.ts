@@ -59,6 +59,10 @@ export class AuthService {
     return this.roles.indexOf(rollName) !== -1;
   }
 
+  isModeratorOrAdmin() {
+    return this.isInRole('admin') || this.isInRole('moderator');
+  }
+
   getLoggedinUserName() {
     let nickName = this.profile && this.profile.name ? this.profile.name.split(' ')[0] : null;
     return nickName || (this.profile ? this.profile.email : null);

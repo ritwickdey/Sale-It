@@ -12,8 +12,12 @@ export interface IChartData {
 @Component({
     template: `
         <h1>Vehicles Report</h1>
-        <chart *ngIf="data" type="pie" [data]="data" ></chart>
-    `
+        <div class="chart-size">
+            <chart *ngIf="data" type="doughnut" [data]="data" ></chart>
+        </div>
+    `,
+    styleUrls : ['report.component.css']
+    
 })
 
 export class ReportComponent implements OnInit {

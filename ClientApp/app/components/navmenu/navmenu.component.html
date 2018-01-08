@@ -23,7 +23,7 @@
                     </a>
                     <a (click)="authService.logout()" *ngIf="authService.authenticated()">
                         <span class='glyphicon glyphicon-log-out'></span>
-                        {{'Hi, '+ (authService.getLoggedinUserName() || 'User') + ','}} | logout
+                        {{'Hi, '+ (authService.getLoggedinUserName() || 'User') }} | logout
                     </a>
                 </li>
                 <li [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{exact: true}">
@@ -31,7 +31,7 @@
                         <span class='glyphicon glyphicon-home'></span> Vehicles
                     </a>
                 </li>
-                <li [routerLinkActive]="['link-active']">
+                <li *ngIf="authService.isModeratorOrAdmin()" [routerLinkActive]="['link-active']">
                     <a [routerLink]="['/vehicles/new']">
                         <span class='glyphicon glyphicon-plus'></span> New Vehicle
                     </a>

@@ -33,14 +33,14 @@
     </ul>
     <br>
     <div>
-      <a *ngIf="authService.authenticated()" [routerLink]="['/vehicles', 'edit', vehicle.id]" class="btn btn-primary">Edit</a>
-      <button *ngIf="authService.authenticated()" (click)="onDelete()" class="btn btn-danger">Delete</button>
+      <a *ngIf="authService.isModeratorOrAdmin()" [routerLink]="['/vehicles', 'edit', vehicle.id]" class="btn btn-primary">Edit</a>
+      <button *ngIf="authService.isModeratorOrAdmin()" (click)="onDelete()" class="btn btn-danger">Delete</button>
       <a [routerLink]="['/vehicles']" class="btn btn-default">View All Vehicles</a>
     </div>
   </div>
   <div id="photos" class="tab-pane fade">
     <h3>Photos</h3>
-    <div>
+    <div *ngIf="authService.isModeratorOrAdmin()" >
       <input type="file" accept=".jpg, .jpeg, .png" #fileInput (change)="uploadPhoto()">
       <p>(Under 1MB, Supported format: jpeg, jpg, png)</p>
     </div>
