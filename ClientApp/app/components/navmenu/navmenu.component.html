@@ -36,9 +36,9 @@
                         <span class='glyphicon glyphicon-plus'></span> New Vehicle
                     </a>
                 </li>
-                <li [routerLinkActive]="['link-active']" *ngIf="authService.isInRole('admin')">
-                    <a [routerLink]="['/admin']">
-                        <span class='glyphicon glyphicon-education'></span> Admin
+                <li [routerLinkActive]="['link-active']">
+                    <a [routerLink]="['/report']">
+                        <span class='glyphicon glyphicon-education'></span> Report
                     </a>
                 </li>
             </ul>

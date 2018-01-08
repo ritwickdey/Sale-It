@@ -1,4 +1,4 @@
-import { VehicleReportService } from './../../services/vehicle-report.service';
+import { VehicleReportService } from '../../services/vehicle-report.service';
 import { Component, OnInit } from '@angular/core';
 
 export interface IChartData {
@@ -16,7 +16,7 @@ export interface IChartData {
     `
 })
 
-export class AdminComponent implements OnInit {
+export class ReportComponent implements OnInit {
 
     data: IChartData;
 

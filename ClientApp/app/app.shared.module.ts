@@ -23,7 +23,7 @@ import { PhotoService } from './services/photo.service';
 import { LoaderComponent } from './components/shared/loader/loader.component';
 import { LoaderService } from './services/loader.service';
 import { AuthService } from './services/auth.service';
-import { AdminComponent } from './components/admin/admin.component';
+import { ReportComponent } from './components/report/report.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { AdminAuthGuardService } from './services/admin-auth-guard.service';
 import { JwtModule } from '@auth0/angular-jwt';
@@ -44,7 +44,7 @@ Raven
         PaginationComponent,
         ViewVehicleComponent,
         LoaderComponent,
-        AdminComponent
+        ReportComponent
     ],
     imports: [
         HttpClientModule,
@@ -60,7 +60,7 @@ Raven
         }),
         RouterModule.forRoot([
             { path: '', redirectTo: 'vehicles', pathMatch: 'full' },
-            { path: 'admin', component: AdminComponent, canActivate: [AuthGuardService, AdminAuthGuardService] },
+            { path: 'report', component: ReportComponent, canActivate: [AuthGuardService] },
             { path: 'vehicles', component: VehicleListComponent },
             { path: 'vehicles/new', component: VehicleFormComponent, canActivate: [AuthGuardService] },
             { path: 'vehicles/:id', component: ViewVehicleComponent },
