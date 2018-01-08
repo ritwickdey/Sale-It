@@ -51,7 +51,7 @@ Raven
         ChartModule,
         JwtModule.forRoot({
             config: {
-                tokenGetter: () => localStorage.getItem('token')!
+                tokenGetter: getToken
             }
         }),
         RouterModule.forRoot([
@@ -75,4 +75,8 @@ Raven
     ]
 })
 export class AppModuleShared {
+}
+
+export function getToken() {
+    return localStorage.getItem('token')!;
 }
