@@ -28,4 +28,6 @@ A Sample Vehicle Dealer App built with ASP.NET Core + Angular 4
     > dotnet ef database update
     > dotnet watch run 
 ```
+
+
 > [The project is improved from this awesome [Angular + ASP.NET Core course](https://www.udemy.com/aspnet-core-angular/) (BY MOSH HAMEDANI) which I've taken.]
