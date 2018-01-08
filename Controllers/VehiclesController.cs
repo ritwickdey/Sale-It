@@ -25,7 +25,7 @@ namespace SaleIt.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Policies.RequriedModeratorRole)]
         public async Task<IActionResult> CreateVehiclesAsync([FromBody] SaveVehicleResource vehicleResource)
         {
             try
@@ -52,7 +52,7 @@ namespace SaleIt.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize]
+        [Authorize(Policies.RequriedModeratorRole)]
         public async Task<IActionResult> UpdateVehiclesAsync(int id, [FromBody] SaveVehicleResource vehicleResource)
         {
             try
@@ -60,9 +60,9 @@ namespace SaleIt.Controllers
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
-               // var vehicle = await context.Vehicles.Include(e => e.VehicleFeatures).FirstOrDefaultAsync(e => e.Id == id);
+                // var vehicle = await context.Vehicles.Include(e => e.VehicleFeatures).FirstOrDefaultAsync(e => e.Id == id);
                 var vehicle = await repository.GetVehicleAsync(id);
-                
+
                 if (vehicle == null) return NotFound();
 
                 mapper.Map<SaveVehicleResource, Vehicle>(vehicleResource, vehicle);
@@ -82,7 +82,7 @@ namespace SaleIt.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize]        
+        [Authorize(Policies.RequriedModeratorRole)]
         public async Task<IActionResult> DeleteVehiclesAsync(int id)
         {
             try
@@ -91,7 +91,7 @@ namespace SaleIt.Controllers
                 if (vehicle == null) return NotFound();
                 repository.Remove(vehicle);
                 await unitOfWork.CompleteAsync();
-                return Ok(new {});
+                return Ok(new { });
             }
             catch (Exception)
             {

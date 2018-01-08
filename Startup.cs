@@ -41,6 +41,11 @@ namespace SaleIt
                 {
                     policy.RequireClaim("https://SaleIt.com/roles", "admin");
                 });
+
+                options.AddPolicy(Policies.RequriedModeratorRole, policy =>
+                {
+                    policy.RequireClaim("https://SaleIt.com/roles", "moderator");
+                });
             });
 
             services.AddAuthentication(options =>
