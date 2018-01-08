@@ -40,7 +40,10 @@
   </div>
   <div id="photos" class="tab-pane fade">
     <h3>Photos</h3>
-    <input *ngIf="authService.authenticated()" type="file" accept=".jpg, .jpeg, .png" #fileInput (change)="uploadPhoto()">
+    <div>
+      <input type="file" accept=".jpg, .jpeg, .png" #fileInput (change)="uploadPhoto()">
+      <p>(Under 1MB, Supported format: jpeg, jpg, png)</p>
+    </div>
     <br>
     <div class="images">
       <div class="image" *ngFor="let p of photos">
