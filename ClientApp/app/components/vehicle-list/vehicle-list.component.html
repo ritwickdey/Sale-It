@@ -39,7 +39,7 @@
       </th>
     </tr>
   </thead>
-  <tbody>
+  <tbody *ngIf="queryResult?.items?.length != 0">
     <tr *ngFor="let v of queryResult.items">
       <td>{{v.id}}</td>
       <td>{{v.make.name}}</td>
@@ -48,6 +48,11 @@
       <td>
         <a [routerLink]="['/vehicles', v.id]">View</a>
       </td>
+    </tr>
+  </tbody>
+  <tbody *ngIf="queryResult?.items?.length == 0">
+    <tr>
+      <td  class="text-center" colspan="4">No results</td>
     </tr>
   </tbody>
 </table>

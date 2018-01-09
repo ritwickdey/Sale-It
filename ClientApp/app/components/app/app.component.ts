@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
     ngOnInit() {
        
            setTimeout(() => {
-            this.toastyService.warning({
+            this.toastyService.info({
                 title: 'Moderator',
                 msg: 'Account: example@example.com \n pass: 12345678',
                 timeout: 5000,
@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
            }, 6000);
 
            setTimeout(() => {
-            this.toastyService.info({
+            this.toastyService.warning({
                 title: 'Note',
                 msg: 'Only Admin/Moderator can add/edit/delete Vehichles',
                 timeout: 5000,
