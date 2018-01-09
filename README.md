@@ -8,7 +8,8 @@ A Sample Vehicle Dealer App built with ASP.NET Core + Angular 4
 - Server Side Sorting & Pagination
 - Role Based Athentication
 
-## Demo Link : *(Comming soon, you can try locally)*
+## Demo Link :
+ Live Demo: https://ritwick-sale-it.azurewebsites.net/
 
 ## Framework / Library / Service Used
 - Angular 4 *(Frontend)*
