@@ -25,7 +25,7 @@ A Sample Vehicle Dealer App built with ASP.NET Core + Angular 4
     > npm install
     > dotnet restore
     > set ASPNETCORE_ENVIRONMENT=Development
-    > set connectionStrings:Default="<YOUR CONNETION STRING>"
+    > set connectionString:Default="<YOUR CONNETION STRING>"
     > npm i webpack -g
     > webpack --config webpack.config.vendor.js
     > webpack 
