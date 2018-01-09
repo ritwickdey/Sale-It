@@ -45,10 +45,13 @@
       <p>(Under 1MB, Supported format: jpeg, jpg, png)</p>
     </div>
     <br>
-    <div class="images">
+    <div *ngIf="photos?.length != 0" class="images">
       <div class="image" *ngFor="let p of photos">
         <img [src]="'/uploads/'+p.fileName" class="img-thumbnail">
       </div>
+    </div>
+    <div *ngIf="photos?.length == 0">
+      <div class="text-center" >No Photos</div>
     </div>
   </div>
 </div>
