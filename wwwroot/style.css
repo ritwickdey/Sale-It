@@ -1,0 +1,15 @@
+div#toasty ng2-toast .toast.toasty-theme-bootstrap.toasty-type-info {
+    background-color: #17a2b8 !important;
+}
+
+div#toasty ng2-toast .toast.toasty-theme-bootstrap.toasty-type-success {
+    background-color: #28a745 !important;
+}
+
+div#toasty ng2-toast .toast.toasty-theme-bootstrap.toasty-type-error {
+    background-color: #dc3545!important;
+}
+
+div#toasty ng2-toast .toast.toasty-theme-bootstrap.toasty-type-warning {
+    background-color: #ce9c06!important;
+}
