@@ -3,8 +3,8 @@
 A Sample Vehicle Dealer App built with ASP.NET Core + Angular 4
 
 ## Features 
-- Only Admin/Moderator can perform Create/Edit/Delete operator & upload photo.
-- Normal User Can Only view the vehicle details & report of vehicles in charts view.
+- Only Admin/Moderator can perform Create/Edit/Delete operations & upload photos.
+- Normal User only can view the vehicle details & see report of vehicles in charts view.
 - Server Side Sorting & Pagination
 - Role Based Athentication
 
