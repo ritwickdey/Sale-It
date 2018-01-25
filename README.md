@@ -15,7 +15,7 @@ A Sample Vehicle Dealer App built with ASP.NET Core + Angular 4
 - Angular 4 *(Frontend)*
 - ASP.NET Core *(Backend)*
 - Entity Framework Core *(ORM)*
-- Auth0 *(Athentication & Authorization)*
+- Auth0 *(Authentication & Authorization)*
 - AutoMapper *(For mapping into Domain Model & DTO)*
 - Chart.js *(For Pie Chart)*
 
