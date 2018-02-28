@@ -1,6 +1,6 @@
 # Sale It
 
-A Sample Vehicle Dealer App built with ASP.NET Core + Angular 4
+A Simple Vehicle Dealer App built with ASP.NET Core + Angular 4
 
 ## Features 
 - Only Admin/Moderator can perform Create/Edit/Delete operations & upload photos.
